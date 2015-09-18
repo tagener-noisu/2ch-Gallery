@@ -10,6 +10,7 @@
 // tagener-noisu / 2015
 
 var pics = []
+var current_pos = 0;
 var is_visible = false;
 var is_created = false;
 
@@ -22,6 +23,11 @@ var gallery_css = "#gallery-wrapper { \
 	left: 0; \
 	min-height : 700px; \
 	background-color: #000; \
+} \
+#gallery-player { \
+	display: none; \
+	height: 100%; \
+	margin: auto; \
 } \
 #theater { \
 	width: 100%; \
@@ -77,6 +83,7 @@ var gallery_css = "#gallery-wrapper { \
     to {transform: rotate(90deg);} \
 }";
 
+
 document.addEventListener("DOMContentLoaded", function(e) {
   var styles = document.createElement('style');
 	styles.innerHTML = gallery_css;
@@ -86,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	gallery.id = 'gallery-wrapper';
 	gallery.style.display = 'none';
 
-	gallery.innerHTML = '<div id="theater"></div>\
+	gallery.innerHTML = '<div id="theater"><video id="gallery-player" controls="1" loop="1"></video></div>\
 		<div id="prev2ch"></div>\n';
 
 	var ctrl_btn = document.createElement('div');
@@ -100,15 +107,26 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	}
 });
 
+
 function toggleGallery() {
 	if (!is_created) {
         createGallery();
         is_created = true;
+
+				window.addEventListener('keydown', function(e) {
+					if (e.keyCode === 37)
+						makeMeSuffer(current_pos - 1);
+					else if (e.keyCode == 39)
+						makeMeSuffer(current_pos + 1);
+				}, 'false');
   }
 
   var wrapper = document.getElementById('gallery-wrapper');
 
   if (is_visible) {
+		var player = document.getElementById('gallery-player');
+		player.pause();
+
   	document.getElementById('menu-btn').style.transform = 'rotate(0deg)';
   	wrapper.style.display = 'none';
 		is_visible = false;
@@ -120,6 +138,7 @@ function toggleGallery() {
 	}
 }
 
+
 function createGallery() {
 	var thumbs = document.getElementsByClassName('preview');
 
@@ -130,12 +149,13 @@ function createGallery() {
     makeMeSuffer(0);
 }
 
+
 function galleryAddPicture(thumb_obj) {
 	var preview_src = thumb_obj.src;
 	var main_src = thumb_obj.parentNode.href;
 	var wrapper = document.getElementById('prev2ch');
 
-	if (pics.indexOf(main_src) != -1 || main_src.indexOf('.webm') != -1)
+	if (pics.indexOf(main_src) != -1)
 		return;
 
 	var new_icon = document.createElement('a');
@@ -153,17 +173,36 @@ function galleryAddPicture(thumb_obj) {
 	pics.push(main_src);
 }
 
+
 function makeMeSuffer(id) {
+	if (id < 0 || id >= pics.length)
+		id = 0
+
+	current_pos = id;
+
 	var th = document.getElementById('theater');
 	var wrapper = document.getElementById('prev2ch');
 	var img = new Image();
 
-	document.getElementById('menu-btn').className = 'loading';
-	img.onload = function() {
-		document.getElementById('menu-btn').className = '';
-		th.style.backgroundImage = 'url(' + this.src + ')';
+	var player = document.getElementById('gallery-player');
+	player.pause();
+	th.style.backgroundImage = 'none';
+	
+	if (pics[id].endsWith('.webm')) {
+		player.style.display = 'block';
+		player.src = pics[id];
+		player.play();
 	}
-	img.src = pics[id];
+	else {
+		document.getElementById('menu-btn').className = 'loading';
+		player.style.display = 'none';
+
+		img.onload = function() {
+			document.getElementById('menu-btn').className = '';
+			th.style.backgroundImage = 'url(' + this.src + ')';
+		}
+		img.src = pics[id];
+	}
 
 	wrapper.scrollLeft = 200 * id - 40;
 }
