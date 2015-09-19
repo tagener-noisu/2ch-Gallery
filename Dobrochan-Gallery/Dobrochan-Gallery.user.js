@@ -116,8 +116,9 @@ function toggleGallery() {
 				window.addEventListener('keydown', function(e) {
 					if (e.keyCode === 37)
 						makeMeSuffer(current_pos - 1);
-					else if (e.keyCode == 39)
+					else if (e.keyCode === 39)
 						makeMeSuffer(current_pos + 1);
+					e.preventDefault();
 				}, 'false');
   }
 
@@ -142,10 +143,10 @@ function toggleGallery() {
 function createGallery() {
 	var thumbs = document.getElementsByClassName('thumb');
 
-	for(var i = 0; i < thumbs.length; ++i)
+	for (var i = 0, len = thumbs.length; i < len; ++i)
 		galleryAddPicture(thumbs[i]);
 
-  if(pics.length != 0)
+  if (pics.length != 0)
     makeMeSuffer(0);
 }
 
@@ -165,7 +166,8 @@ function galleryAddPicture(thumb_obj) {
 	new_icon.href = main_src;
 
 	new_icon.onclick = function(e) { 
-		makeMeSuffer(this.id);
+		var a = parseInt(this.id);
+		makeMeSuffer(a);
 		e.preventDefault();
 	};
 
