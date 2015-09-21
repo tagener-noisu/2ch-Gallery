@@ -29,7 +29,7 @@ var gallery_css = "#gallery-wrapper { \
 	height: 100%; \
 	margin: auto; \
 } \
-#theater { \
+#gallery-main { \
 	width: 100%; \
 	height: 80%; \
 	background-color: #000; \
@@ -37,21 +37,21 @@ var gallery_css = "#gallery-wrapper { \
 	background-repeat: no-repeat; \
 	background-position: center; \
 } \
-#prev2ch { \
+#gallery-footer { \
 	height: 20%; \
 	width: 100%; \
 	overflow-x: auto; \
 	overflow-y: hidden; \
 	white-space: nowrap; \
 } \
-.g-preview { \
+.gallery-preview { \
 	height: 100%; \
 	width: 200px; \
 	background-size: cover; \
 	background-position: center; \
 	display: inline-block; \
 } \
-#menu-btn { \
+#gallery-ctrl-btn { \
 	transition: 300ms; \
 	position: fixed; \
 	z-index: 101; \
@@ -75,7 +75,7 @@ var gallery_css = "#gallery-wrapper { \
 		46ajM49G/8zGeGcFXSIzAyHcIqmSQ2gXOsmCLpScgRBuqezsLzLYYuk53hBeufwcEGFemJ\
 		gDwosrM/HSVFRUVFTI+gI6IznSGHRk1gAAAABJRU5ErkJggg==\'); \
 } \
-#menu-btn.loading { \
+#gallery-ctrl-btn.loading { \
 	animation: loading 600ms infinite; \
 } \
 @keyframes loading { \
@@ -93,16 +93,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
 	gallery.id = 'gallery-wrapper';
 	gallery.style.display = 'none';
 
-	gallery.innerHTML = '<div id="theater"><video id="gallery-player" controls="1" loop="1"></video></div>\
-		<div id="prev2ch"></div>\n';
+	gallery.innerHTML = '<div id="gallery-main"><video id="gallery-player" controls="1" loop="1"></video></div>\
+		<div id="gallery-footer"></div>\n';
 
 	var ctrl_btn = document.createElement('div');
-	ctrl_btn.id = 'menu-btn';
+	ctrl_btn.id = 'gallery-ctrl-btn';
 
 	document.body.appendChild(gallery);
 	document.body.appendChild(ctrl_btn);
 
-  document.getElementById('menu-btn').onclick = function() {
+  document.getElementById('gallery-ctrl-btn').onclick = function() {
 		toggleGallery();
 	}
 });
@@ -128,12 +128,12 @@ function toggleGallery() {
 		var player = document.getElementById('gallery-player');
 		player.pause();
 
-  	document.getElementById('menu-btn').style.transform = 'rotate(0deg)';
+  	document.getElementById('gallery-ctrl-btn').style.transform = 'rotate(0deg)';
   	wrapper.style.display = 'none';
 		is_visible = false;
 	}
 	else {
-		document.getElementById('menu-btn').style.transform = 'rotate(45deg)';
+		document.getElementById('gallery-ctrl-btn').style.transform = 'rotate(45deg)';
 		wrapper.style.display = 'block';
 		is_visible = true;
 	}
@@ -154,13 +154,13 @@ function createGallery() {
 function galleryAddPicture(thumb_obj) {
 	var preview_src = thumb_obj.src;
 	var main_src = thumb_obj.parentNode.href;
-	var wrapper = document.getElementById('prev2ch');
+	var wrapper = document.getElementById('gallery-footer');
 
 	if (pics.indexOf(main_src) != -1)
 		return;
 
 	var new_icon = document.createElement('a');
-	new_icon.className = "g-preview";
+	new_icon.className = "gallery-preview";
 	new_icon.id = pics.length;
 	new_icon.style.backgroundImage = 'url(' + preview_src + ')';
 	new_icon.href = main_src;
@@ -182,8 +182,8 @@ function makeMeSuffer(id) {
 
 	current_pos = id;
 
-	var th = document.getElementById('theater');
-	var wrapper = document.getElementById('prev2ch');
+	var th = document.getElementById('gallery-main');
+	var wrapper = document.getElementById('gallery-footer');
 	var img = new Image();
 
 	var player = document.getElementById('gallery-player');
@@ -196,11 +196,11 @@ function makeMeSuffer(id) {
 		player.play();
 	}
 	else {
-		document.getElementById('menu-btn').className = 'loading';
+		document.getElementById('gallery-ctrl-btn').className = 'loading';
 		player.style.display = 'none';
 
 		img.onload = function() {
-			document.getElementById('menu-btn').className = '';
+			document.getElementById('gallery-ctrl-btn').className = '';
 			th.style.backgroundImage = 'url(' + this.src + ')';
 		}
 		img.src = pics[id];
