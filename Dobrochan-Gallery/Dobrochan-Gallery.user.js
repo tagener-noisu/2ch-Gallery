@@ -9,13 +9,19 @@
 
 // tagener-noisu / 2015
 
-var pics = []
-var current_pos = 0;
-var is_visible = false;
-var is_created = false;
-var img = new Image();
+var Gallery = Gallery || {};
 
-var gallery_css = "#gallery-wrapper { \
+Gallery.pics = []
+Gallery.current_index = 0;
+Gallery.is_visible = false;
+Gallery.is_created = false;
+Gallery.preload_img = new Image();
+Gallery.main_wrap; // #gallery-wrapper
+Gallery.player; // #gallery-player
+Gallery.footer; // #gallery-footer
+Gallery.ctrl_btn;
+
+Gallery.css = "#gallery-wrapper { \
 	position: fixed; \
 	z-index: 100; \
 	top: 0; \
@@ -85,130 +91,128 @@ var gallery_css = "#gallery-wrapper { \
 }";
 
 
-document.addEventListener("DOMContentLoaded", function(e) {
+Gallery.init = function() {
 	var styles = document.createElement('style');
 
-	styles.innerHTML = gallery_css;
+	styles.innerHTML = this.css;
 	document.head.appendChild(styles);
 
-	var gallery = document.createElement('div');
-	gallery.id = 'gallery-wrapper';
-	gallery.style.display = 'none';
+	this.main_wrap = document.createElement('div');
+	this.main_wrap.id = 'gallery-wrapper';
+	this.main_wrap.style.display = 'none';
 
-	gallery.innerHTML = '<div id="gallery-main">\
+	this.main_wrap.innerHTML = '<div id="gallery-main">\
 						<video id="gallery-player" controls="1" loop="1"></video></div>\
 						<div id="gallery-footer"></div>\n';
 
-	var ctrl_btn = document.createElement('div');
-	ctrl_btn.id = 'gallery-ctrl-btn';
+	this.ctrl_btn = document.createElement('div');
+	this.ctrl_btn.id = 'gallery-ctrl-btn';
 
-	document.body.appendChild(gallery);
-	document.body.appendChild(ctrl_btn);
+	document.body.appendChild(this.main_wrap);
+	document.body.appendChild(this.ctrl_btn);
+	this.player = document.getElementById("gallery-player");
+	this.footer = document.getElementById("gallery-footer");
 
-	document.getElementById('gallery-ctrl-btn').onclick = function() {
-		toggleGallery();
+	this.ctrl_btn.onclick = function() { // q
+		Gallery.toggleGallery();
 	}
-});
+};
 
 
-function toggleGallery() {
-	if (!is_created) {
-        createGallery();
-        is_created = true;
+Gallery.toggleGallery = function() {
+	if (!this.is_created) {
+        this.createGallery();
+        this.is_created = true;
 		
 		window.addEventListener('keydown', function(e) {
 			if (e.keyCode === 37)
-				makeMeSuffer(current_pos - 1);
+				Gallery.makeMeSuffer(Gallery.current_index - 1);
 			else if (e.keyCode === 39)
-				makeMeSuffer(current_pos + 1);
+				Gallery.makeMeSuffer(Gallery.current_index + 1);
 
 			e.preventDefault();
 		}, 'false');
 	}
 
-	var wrapper = document.getElementById('gallery-wrapper');
+	if (this.is_visible) {
+		this.player.pause();
 
-	if (is_visible) {
-		var player = document.getElementById('gallery-player');
-		player.pause();
-
-  	document.getElementById('gallery-ctrl-btn').style.transform = 'rotate(0deg)';
-  	wrapper.style.display = 'none';
-		is_visible = false;
+		this.ctrl_btn.style.transform = 'rotate(0deg)';
+		this.main_wrap.style.display = 'none';
+		this.is_visible = false;
 	}
 	else {
-		document.getElementById('gallery-ctrl-btn').style.transform = 'rotate(45deg)';
-		wrapper.style.display = 'block';
-		is_visible = true;
+		this.ctrl_btn.style.transform = 'rotate(45deg)';
+		this.main_wrap.style.display = 'block';
+		this.is_visible = true;
 	}
 }
 
 
-function createGallery() {
+Gallery.createGallery = function() {
 	var thumbs = document.getElementsByClassName('thumb');
 
 	for (var i = 0, len = thumbs.length; i < len; ++i)
-		galleryAddPicture(thumbs[i]);
+		this.galleryAddPicture(thumbs[i]);
 
-	if (pics.length != 0)
-		makeMeSuffer(0);
+	if (this.pics.length != 0)
+		this.makeMeSuffer(0);
 }
 
 
-function galleryAddPicture(thumb_obj) {
+Gallery.galleryAddPicture = function(thumb_obj) {
 	var preview_src = thumb_obj.src;
 	var main_src = thumb_obj.parentNode.href;
-	var wrapper = document.getElementById('gallery-footer');
 
-	if (pics.indexOf(main_src) != -1)
+	if (this.pics.indexOf(main_src) != -1)
 		return;
 
 	var new_icon = document.createElement('a');
 	new_icon.className = "gallery-preview";
-	new_icon.id = pics.length;
+	new_icon.id = this.pics.length;
 	new_icon.style.backgroundImage = 'url(' + preview_src + ')';
 	new_icon.href = main_src;
 
 	new_icon.onclick = function(e) { 
 		var a = parseInt(this.id);
-		makeMeSuffer(a);
+		Gallery.makeMeSuffer(a);
 		e.preventDefault();
 	};
 
-	wrapper.appendChild(new_icon);
-	pics.push(main_src);
+	this.footer.appendChild(new_icon);
+	this.pics.push(main_src);
 }
 
 
-function makeMeSuffer(id) {
-	if (id < 0 || id >= pics.length)
+Gallery.makeMeSuffer = function(id) {
+	if (id < 0 || id >= this.pics.length)
 		id = 0
 
-	current_pos = id;
+	this.current_index = id;
 
 	var th = document.getElementById('gallery-main');
-	var wrapper = document.getElementById('gallery-footer');
-	//var img = new Image();
 
-	var player = document.getElementById('gallery-player');
-	player.pause();
+	this.player.pause();
 	th.style.backgroundImage = 'none';
 	
-	if (pics[id].endsWith('.webm')) {
-		player.style.display = 'block';
-		player.src = pics[id];
-		player.play();
+	if (this.pics[id].endsWith('.webm')) {
+		this.player.style.display = 'block';
+		this.player.src = this.pics[id];
+		this.player.play();
 	}
 	else {
-		document.getElementById('gallery-ctrl-btn').className = 'loading';
-		player.style.display = 'none';
+		this.ctrl_btn.className = 'loading';
+		this.player.style.display = 'none';
 
-		img.onload = function() {
-			document.getElementById('gallery-ctrl-btn').className = '';
+		this.preload_img.onload = function() {
+			Gallery.ctrl_btn.className = '';
 			th.style.backgroundImage = 'url(' + this.src + ')';
 		}
-		img.src = pics[id];
+		this.preload_img.src = this.pics[id];
 	}
 
-	wrapper.scrollLeft = 200 * id - 40;
+	this.footer.scrollLeft = 200 * id - 40;
 }
+
+
+window.addEventListener("DOMContentLoaded",Gallery.init(), "false");
