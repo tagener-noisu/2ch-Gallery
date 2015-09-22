@@ -3,7 +3,7 @@
 // @namespace   dot.noisu
 // @include     http://dobrochan.com/*/res/*
 // @include     http://dobrochan.ru/*/res/*
-// @version     1.1
+// @version     1.2
 // @grant       none
 // ==/UserScript==
 
@@ -161,6 +161,9 @@ Gallery.createGallery = function() {
 Gallery.galleryAddPicture = function(thumb_obj) {
 	var preview_src = thumb_obj.src;
 	var main_src = thumb_obj.parentNode.href;
+
+	if (!preview_src || !main_src)
+		return 1;
 
 	if (this.pics.indexOf(main_src) != -1)
 		return;
