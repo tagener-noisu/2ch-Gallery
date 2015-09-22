@@ -16,10 +16,6 @@ Gallery.current_index = 0;
 Gallery.is_visible = false;
 Gallery.is_created = false;
 Gallery.preload_img = new Image();
-Gallery.main_wrap; // #gallery-wrapper
-Gallery.player; // #gallery-player
-Gallery.footer; // #gallery-footer
-Gallery.ctrl_btn;
 
 Gallery.css = "#gallery-wrapper { \
 	position: fixed; \
@@ -113,9 +109,9 @@ Gallery.init = function() {
 	this.player = document.getElementById("gallery-player");
 	this.footer = document.getElementById("gallery-footer");
 
-	this.ctrl_btn.onclick = function() { // q
+	this.ctrl_btn.addEventListener('click', function() {
 		Gallery.toggleGallery();
-	}
+	}, 'false');
 };
 
 
@@ -125,6 +121,8 @@ Gallery.toggleGallery = function() {
         this.is_created = true;
 		
 		window.addEventListener('keydown', function(e) {
+			if (!Gallery.is_visible) 
+				return;
 			if (e.keyCode === 37)
 				Gallery.makeMeSuffer(Gallery.current_index - 1);
 			else if (e.keyCode === 39)
@@ -146,7 +144,7 @@ Gallery.toggleGallery = function() {
 		this.main_wrap.style.display = 'block';
 		this.is_visible = true;
 	}
-}
+};
 
 
 Gallery.createGallery = function() {
@@ -157,7 +155,7 @@ Gallery.createGallery = function() {
 
 	if (this.pics.length != 0)
 		this.makeMeSuffer(0);
-}
+};
 
 
 Gallery.galleryAddPicture = function(thumb_obj) {
@@ -173,15 +171,15 @@ Gallery.galleryAddPicture = function(thumb_obj) {
 	new_icon.style.backgroundImage = 'url(' + preview_src + ')';
 	new_icon.href = main_src;
 
-	new_icon.onclick = function(e) { 
+	new_icon.addEventListener('click', function(e) {
 		var a = parseInt(this.id);
 		Gallery.makeMeSuffer(a);
 		e.preventDefault();
-	};
+	}, 'false');
 
 	this.footer.appendChild(new_icon);
 	this.pics.push(main_src);
-}
+};
 
 
 Gallery.makeMeSuffer = function(id) {
@@ -212,7 +210,7 @@ Gallery.makeMeSuffer = function(id) {
 	}
 
 	this.footer.scrollLeft = 200 * id - 40;
-}
+};
 
 
 window.addEventListener("DOMContentLoaded",Gallery.init(), "false");
