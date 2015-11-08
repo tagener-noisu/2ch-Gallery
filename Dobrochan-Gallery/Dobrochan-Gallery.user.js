@@ -149,7 +149,8 @@ Gallery.toggleGallery = function() {
 Gallery.createGallery = function() {
 	var thumbs = document.getElementsByClassName('thumb');
 
-	for (var i = 0, len = thumbs.length; i < len; ++i)
+	var len = thumbs.length;
+	for (var i = 0; i < len; ++i)
 		this.galleryAddPicture(thumbs[i]);
 
 	if (this.pics.length != 0)
@@ -170,7 +171,7 @@ Gallery.galleryAddPicture = function(thumb_obj) {
 	var new_icon = document.createElement('a');
 	new_icon.className = "gallery-preview";
 	new_icon.id = this.pics.length;
-	new_icon.style.backgroundImage = 'url(' + preview_src + ')';
+	new_icon.style.backgroundImage = 'url("' + preview_src + '")';
 	new_icon.href = main_src;
 
 	new_icon.addEventListener('click', function(e) {
