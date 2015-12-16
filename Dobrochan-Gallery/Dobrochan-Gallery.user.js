@@ -79,7 +79,7 @@ Gallery.css = "#gallery-wrapper { \
 		gDwosrM/HSVFRUVFTI+gI6IznSGHRk1gAAAABJRU5ErkJggg==\'); \
 } \
 #gallery-ctrl-btn.loading { \
-	animation: loading 600ms infinite; \
+	animation: loading 400ms infinite linear; \
 } \
 @keyframes loading { \
     from {transform: rotate(0deg);} \
