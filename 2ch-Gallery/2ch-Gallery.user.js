@@ -119,14 +119,19 @@ Gallery.toggleGallery = function() {
         this.createGallery();
         this.is_created = true;
 		
-		window.addEventListener('keydown', function(e) {
-			if (!Gallery.is_visible) 
+		document.addEventListener('keydown', function(e) {
+			var used_keys = [37, 39];
+			if (!Gallery.is_visible || used_keys.indexOf(e.keyCode) === -1) 
 				return;
-			if (e.keyCode === 37)
-				Gallery.makeMeSuffer(Gallery.current_index - 1);
-			else if (e.keyCode === 39)
-				Gallery.makeMeSuffer(Gallery.current_index + 1);
 
+			switch (e.keyCode) {
+				case 37:
+					Gallery.makeMeSuffer(Gallery.current_index - 1);
+					break;
+				case 39:
+					Gallery.makeMeSuffer(Gallery.current_index + 1);
+					break;
+			}
 			e.preventDefault();
 		}, 'false');
 	}
