@@ -52,6 +52,17 @@ Gallery.css = "#gallery-wrapper { \
 	background-position: center; \
 	display: inline-block; \
 } \
+.type-preview { \
+	position: absolute; \
+	cursor: normal; \
+	width: 200px; \
+	height: 2000px; \
+	font-size: 2em; \
+	color: #FFF; \
+	text-shadow: 0 0 2px #000; \
+	line-height: 150px; \
+	text-align: center; \
+} \
 #gallery-ctrl-btn { \
 	transition: 300ms; \
 	position: fixed; \
@@ -159,8 +170,17 @@ Gallery.galleryAddPicture = function(thumb_obj) {
 	var new_icon = document.createElement('a');
 	new_icon.className = "gallery-preview";
 	new_icon.id = this.pics.length;
-	new_icon.style.backgroundImage = 'url(' + preview_src + ')';
+	new_icon.style.backgroundImage = 'url("' + preview_src + '")';
 	new_icon.href = main_src;
+
+	var ext = main_src.match(/\w+$/)[0];
+	var special_type = ["webm", "gif"].indexOf(ext);
+	if (special_type != -1) {
+		var type_lable = document.createElement('div');
+		type_lable.className = 'type-preview';
+		type_lable.innerHTML = ["webm", "gif"][special_type];
+		new_icon.appendChild(type_lable);
+	}
 
 	new_icon.addEventListener('click', function(e) {
 		var a = parseInt(this.id);
