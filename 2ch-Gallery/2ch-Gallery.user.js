@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name        Dobrochan-Gallery
+// @name        2ch-Gallery
 // @namespace   dot.noisu
-// @include     http://dobrochan.com/*/res/*
-// @include     http://dobrochan.ru/*/res/*
-// @version     1.2
+// @include     https://2ch.hk/*/res/*
+// @include     https://2ch.pm/*/res/*
+// @version     1.3
 // @grant       none
 // ==/UserScript==
 
