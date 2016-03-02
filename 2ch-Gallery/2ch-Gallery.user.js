@@ -74,7 +74,7 @@ Gallery.css = "#gallery-wrapper { \
 	right: 40px; \
 } \
 #gallery-ctrl-btn.loading { \
-	animation: loading 400ms infinite linear; \
+	animation: loading 300ms infinite linear; \
 } \
 @keyframes loading { \
     from {transform: rotate(0deg);} \
