@@ -31,15 +31,19 @@ Gallery.css = "#gallery-wrapper { \
 	margin: auto; \
 } \
 #gallery-main { \
+	position: absolute; \
+	top: 0; \
+	bottom: 200px; \
 	width: 100%; \
-	height: 80%; \
 	background-color: #000; \
 	background-size: contain; \
 	background-repeat: no-repeat; \
 	background-position: center; \
 } \
 #gallery-footer { \
-	height: 20%; \
+	position: absolute; \
+	bottom: 0; \
+	height: 200px; \
 	width: 100%; \
 	overflow-x: auto; \
 	overflow-y: hidden; \
@@ -56,7 +60,7 @@ Gallery.css = "#gallery-wrapper { \
 	position: absolute; \
 	cursor: normal; \
 	width: 200px; \
-	height: 2000px; \
+	height: 200px; \
 	font-size: 2em; \
 	color: #FFF; \
 	text-shadow: 0 0 2px #000; \
