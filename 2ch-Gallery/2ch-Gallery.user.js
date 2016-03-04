@@ -3,7 +3,7 @@
 // @namespace   dot.noisu
 // @include     https://2ch.hk/*/res/*
 // @include     https://2ch.pm/*/res/*
-// @version     1.3
+// @version     1.4
 // @grant       none
 // ==/UserScript==
 
@@ -33,7 +33,7 @@ Gallery.css = "#gallery-wrapper { \
 #gallery-main { \
 	position: absolute; \
 	top: 0; \
-	bottom: 200px; \
+	bottom: 150px; \
 	width: 100%; \
 	background-color: #000; \
 	background-size: contain; \
@@ -43,7 +43,7 @@ Gallery.css = "#gallery-wrapper { \
 #gallery-footer { \
 	position: absolute; \
 	bottom: 0; \
-	height: 200px; \
+	height: 150px; \
 	width: 100%; \
 	overflow-x: auto; \
 	overflow-y: hidden; \
@@ -51,7 +51,7 @@ Gallery.css = "#gallery-wrapper { \
 } \
 .gallery-preview { \
 	height: 100%; \
-	width: 200px; \
+	width: 150px; \
 	background-size: cover; \
 	background-position: center; \
 	display: inline-block; \
@@ -59,8 +59,8 @@ Gallery.css = "#gallery-wrapper { \
 .type-preview { \
 	position: absolute; \
 	cursor: normal; \
-	width: 200px; \
-	height: 200px; \
+	width: 150px; \
+	height: 150px; \
 	font-size: 2em; \
 	color: #FFF; \
 	text-shadow: 0 0 2px #000; \
@@ -229,7 +229,7 @@ Gallery.makeMeSuffer = function(id) {
 		this.preload_img.src = this.pics[id];
 	}
 
-	this.footer.scrollLeft = 200 * id - 40;
+	this.footer.scrollLeft = 150 * id - 50;
 };
 
 
