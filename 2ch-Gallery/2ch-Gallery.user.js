@@ -18,7 +18,8 @@ var Gallery_resources = {
 		right: 0; \
 		bottom: 0; \
 		left: 0; \
-		min-height : 700px; \
+		min-width: 600px; \
+		min-height : 500px; \
 		background-color: #333; \
 		background-image: url('resource://pdf.js/web/images/texture.png'); \
 		overflow-y: auto; \
@@ -65,7 +66,7 @@ var Gallery_resources = {
 		margin: 0 auto; \
 		padding: 0 10px; \
 		margin-top: 40px; \
-		width: 1200px; \
+		max-width: 1200px; \
 		overflow-x: auto; \
 		overflow-y: hidden; \
 	} \
@@ -75,6 +76,7 @@ var Gallery_resources = {
 		padding-top: 5px; \
 		height: 150px; \
 		width: 100%; \
+		max-width: 100%; \
 		bottom: 0px; \
 		white-space: nowrap; \
 		background-color: inherit; \
