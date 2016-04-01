@@ -149,21 +149,21 @@ var Gallery_resources = {
 	<rect height="15" width="2" x="14" y="7.5" style="fill:#bbb;"/></svg>',
 
 	small_prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(0 -1022.4)">\
-	<rect id="rect4150" height="4" width="4" y="1039.9" x="7.5"/>\
-	<rect id="rect4150-2" height="4" width="4" y="1039.9" x="18.5"/>\
-	<rect id="rect4150-7" height="4" width="4" y="1039.9" x="13"/>\
-	<rect id="rect4150-75" height="4" width="4" y="1035.4" x="7.5"/>\
-	<rect id="rect4150-2-4" height="4" width="4" y="1035.4" x="18.5"/>\
-	<rect id="rect4150-7-1" height="4" width="4" y="1035.4" x="13"/>\
-	<rect id="rect4150-70" height="4" width="4" y="1030.9" x="7.5"/>\
-	<rect id="rect4150-2-1" height="4" width="4" y="1030.9" x="18.5"/>\
-	<rect id="rect4150-7-4" height="4" width="4" y="1030.9" x="13"/></g></svg>',
+	<rect height="4" width="4" y="1039.9" x="7.5"/>\
+	<rect height="4" width="4" y="1039.9" x="18.5"/>\
+	<rect height="4" width="4" y="1039.9" x="13"/>\
+	<rect height="4" width="4" y="1035.4" x="7.5"/>\
+	<rect height="4" width="4" y="1035.4" x="18.5"/>\
+	<rect height="4" width="4" y="1035.4" x="13"/>\
+	<rect height="4" width="4" y="1030.9" x="7.5"/>\
+	<rect height="4" width="4" y="1030.9" x="18.5"/>\
+	<rect height="4" width="4" y="1030.9" x="13"/></g></svg>',
 
 	large_preview_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(-30 -1022.4)">\
-	<rect id="rect4150-759" height="4" width="4" y="1039.9" x="37.5"/>\
-	<rect id="rect4150-2-2" height="4" width="4" y="1039.9" x="48.5"/>\
-	<rect id="rect4150-7-12" height="4" width="4" y="1039.9" x="43"/>\
-	<rect id="rect4150-70-6" height="8" width="15" y="1030.9" x="37.374"/></g></svg>'
+	<rect height="4" width="4" y="1039.9" x="37.5"/>\
+	<rect height="4" width="4" y="1039.9" x="48.5"/>\
+	<rect height="4" width="4" y="1039.9" x="43"/>\
+	<rect height="8" width="15" y="1030.9" x="37.374"/></g></svg>'
 };
 
 var Gallery = {
@@ -183,7 +183,6 @@ var Gallery = {
 		this.main_wrap.innerHTML = Gallery_resources.inner_html;
 
 		this.ctrl_btn = document.createElement('div');
-		this.ctrl_btn = document.createElement('div');
 		this.ctrl_btn.innerHTML = Gallery_resources.ctrl_btn_svg;
 		this.ctrl_btn.id = 'gallery-ctrl-btn';
 		this.ctrl_btn.className = 'header-button';
@@ -194,7 +193,7 @@ var Gallery = {
 		document.body.appendChild(this.main_wrap);
 		document.body.appendChild(this.ctrl_btn);
 
-		// TODO: set the proper name for these two buttons
+		// TODO: set proper names for these two buttons
 		var button1 = document.createElement('div');
 		button1.id = "mode0";
 		button1.className = 'header-button';
@@ -214,9 +213,9 @@ var Gallery = {
 		header.appendChild(button1);
 		header.appendChild(button2);
 
-		this.player = document.getElementById("gallery-player");
-		this.footer = document.getElementById("gallery-footer");
-		this.preload_icon = document.getElementById("preload-icon");
+		this.player = document.querySelector("#gallery-player");
+		this.footer = document.querySelector("#gallery-footer");
+		this.preload_icon = document.querySelector("#preload-icon");
 		this.player.volume = 0.1;
 	},
 
@@ -226,17 +225,24 @@ var Gallery = {
 			this.is_created = true;
 
 			document.addEventListener('keydown', function(e) {
-				var used_keys = [37, 39];
-				if (!Gallery.is_visible || used_keys.indexOf(e.keyCode) === -1)
+				if (!Gallery.is_visible)
 					return;
 
+				var used_keys = {
+					"left_arrow": 37,
+					"right_arrow": 39
+				}
 				switch (e.keyCode) {
-					case 37:
+					case used_keys["left_arrow"]:
 						Gallery.showImage(Gallery.current_index - 1);
 						break;
-					case 39:
+
+					case used_keys["right_arrow"]:
 						Gallery.showImage(Gallery.current_index + 1);
 						break;
+
+					default:
+						return;
 				}
 				e.preventDefault();
 			}, 'false');
@@ -257,29 +263,29 @@ var Gallery = {
 	},
 
 	toggleMode: function(mode) {
-		var th = document.getElementById('gallery-main');
-		var foo = document.getElementById('gallery-footer');
+		var th = document.querySelector('#gallery-main');
+		var foo = document.querySelector('#gallery-footer');
 
 		switch(mode) {
 			case 0:
 				foo.classList.remove('bottom');
 				th.style.display = 'none';
-				document.getElementById("mode0").classList.add("checked");
-				document.getElementById("mode1").classList.remove("checked");
+				document.querySelector("#mode0").classList.add("checked");
+				document.querySelector("#mode1").classList.remove("checked");
 				break;
 			case 1:
 				foo.classList.add('bottom');
 				th.style.display = 'block';
-				document.getElementById("mode1").classList.add("checked");
-				document.getElementById("mode0").classList.remove("checked");
+				document.querySelector("#mode1").classList.add("checked");
+				document.querySelector("#mode0").classList.remove("checked");
 				break;
 		}
 	},
 
 	create: function() {
-		var thumbs = document.getElementsByClassName('preview');
+		var thumbs = document.querySelectorAll('.preview');
 
-		for (var i = 0, len = thumbs.length; i < len; ++i)
+		for (var i = 0, len = thumbs.length; i != len; ++i)
 			this.addPreview(thumbs[i]);
 
 		if (this.pics.length != 0)
@@ -323,12 +329,12 @@ var Gallery = {
 
 	showImage: function(id) {
 		if (id < 0 || id >= this.pics.length)
-			id = 0
+			id = 0;
 
 		this.current_index = id;
 		this.toggleMode(1);
 
-		var th = document.getElementById('gallery-main');
+		var th = document.querySelector('#gallery-main');
 
 		this.player.pause();
 		th.style.backgroundImage = 'none';
@@ -350,9 +356,11 @@ var Gallery = {
 			this.preload_img.src = this.pics[id];
 		}
 
-		this.footer.scrollLeft = 150 * id - document.body.clientWidth / 2 + 75;
+		var preview_width = 150; // px
+		this.footer.scrollLeft = preview_width * id -
+			document.body.clientWidth / 2 + preview_width / 2;
 	}
 };
 
 
-window.addEventListener("DOMContentLoaded",Gallery.init(), "false");
+window.addEventListener("DOMContentLoaded", Gallery.init(), "false");
