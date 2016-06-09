@@ -116,9 +116,11 @@ var Gallery_resources = {
 	} \
 	#gallery-ctrl-btn svg { \
 		transition: 300ms; \
+		-webkit-transition: 300ms; \
 	} \
 	#gallery-ctrl-btn.checked svg { \
 		transform: rotate(45deg); \
+		-webkit-transform: rotate(45deg); \
 	} \
 	#preload-icon { \
 		display: none; \
@@ -136,8 +138,8 @@ var Gallery_resources = {
 		animation: 300ms linear 0s normal none infinite running loading; \
 	} \
 	@keyframes loading { \
-			from {transform: rotate(0deg);} \
-			to {transform: rotate(90deg);} \
+			from {transform: rotate(0deg);-webkit-transform: rotate(0deg);} \
+			to {transform: rotate(90deg);-webkit-transform: rotate(90deg);} \
 	}",
 
 	inner_html: '<div id="gallery-header"></div><div id="gallery-main">\
@@ -339,7 +341,8 @@ var Gallery = {
 		this.player.pause();
 		th.style.backgroundImage = 'none';
 
-		if (this.pics[id].endsWith('.webm')) {
+		//if (this.pics[id].endsWith('.webm')) {
+		if (this.pics[id].match(/\.webm$/) !== null) {
 			Gallery.preload_icon.classList.remove('show');
 			this.player.style.display = 'block';
 			this.player.src = this.pics[id];
@@ -351,7 +354,7 @@ var Gallery = {
 
 			this.preload_img.onload = function() {
 				Gallery.preload_icon.classList.remove('show');
-				th.style.backgroundImage = 'url(' + this.src + ')';
+				th.style.backgroundImage = 'url("' + this.src + '")';
 			}
 			this.preload_img.src = this.pics[id];
 		}
