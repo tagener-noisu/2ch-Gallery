@@ -8,7 +8,6 @@
 // ==/UserScript==
 
 // TODO: create an image for preload icon
-// TODO: draw a texture for wrapper
 
 var Gallery_resources = {
 	css: "#gallery-wrapper { \
@@ -20,8 +19,7 @@ var Gallery_resources = {
 		left: 0; \
 		min-width: 600px; \
 		min-height : 500px; \
-		background-color: #333; \
-		background-image: url('resource://pdf.js/web/images/texture.png'); \
+		background-color: #272727; \
 		overflow-y: auto; \
 	} \
 	#gallery-player { \
@@ -44,7 +42,7 @@ var Gallery_resources = {
 		display: inline-block; \
 		width: 30px; \
 		height: 30px; \
-		border: solid 1px #222; \
+		border: solid 1px #000; \
 		border-radius: 4px; \
 		cursor: pointer; \
 		margin: 0 2px; \
