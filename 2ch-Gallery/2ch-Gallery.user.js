@@ -252,7 +252,6 @@ var Gallery = {
 
 		if (this.is_visible) {
 			this.player.pause();
-
 			this.ctrl_btn.classList.toggle('checked');
 			this.main_wrap.style.display = 'none';
 			this.is_visible = false;
@@ -265,19 +264,19 @@ var Gallery = {
 	},
 
 	toggleMode: function(mode) {
-		var th = document.querySelector('#gallery-main');
-		var foo = document.querySelector('#gallery-footer');
+		var m = document.querySelector('#gallery-main');
+		var f = document.querySelector('#gallery-footer');
 
 		switch(mode) {
 			case this.mode.prevs_only:
-				foo.classList.remove('bottom');
-				th.style.display = 'none';
+				f.classList.remove('bottom');
+				m.style.display = 'none';
 				document.querySelector("#prevs-only-mode").classList.add("checked");
 				document.querySelector("#large-view-mode").classList.remove("checked");
 				break;
 			case this.mode.large_view:
-				foo.classList.add('bottom');
-				th.style.display = 'block';
+				f.classList.add('bottom');
+				m.style.display = 'block';
 				document.querySelector("#large-view-mode").classList.add("checked");
 				document.querySelector("#prevs-only-mode").classList.remove("checked");
 				break;
@@ -295,22 +294,22 @@ var Gallery = {
 	},
 
 	addPreview: function(thumb_obj) {
-		var preview_src = thumb_obj.src;
-		var main_src = thumb_obj.parentNode.href;
+		var preview = thumb_obj.src;
+		var full_size = thumb_obj.parentNode.href;
 
-		if (!preview_src || !main_src)
+		if (!preview || !full_size)
 			return 1;
 
-		if (this.pics.indexOf(main_src) != -1)
+		if (this.pics.indexOf(full_size) != -1)
 			return;
 
 		var new_icon = document.createElement('a');
 		new_icon.className = "gallery-preview";
 		new_icon.id = this.pics.length;
-		new_icon.style.backgroundImage = 'url("' + preview_src + '")';
-		new_icon.href = main_src;
+		new_icon.style.backgroundImage = 'url("' + preview + '")';
+		new_icon.href = full_size;
 
-		var ext = main_src.match(/\w+$/)[0];
+		var ext = full_size.match(/\w+$/)[0];
 		var special_type = ["webm", "gif"].indexOf(ext);
 		if (special_type != -1) {
 			var type_label = document.createElement('div');
@@ -326,7 +325,7 @@ var Gallery = {
 		}, 'false');
 
 		this.footer.appendChild(new_icon);
-		this.pics.push(main_src);
+		this.pics.push(full_size);
 	},
 
 	showImage: function(id) {
@@ -335,13 +334,11 @@ var Gallery = {
 
 		this.current_index = id;
 		this.toggleMode(this.mode.large_view);
-
-		var th = document.querySelector('#gallery-main');
-
 		this.player.pause();
-		th.style.backgroundImage = 'none';
 
-		//if (this.pics[id].endsWith('.webm')) {
+		var m = document.querySelector('#gallery-main');
+		m.style.backgroundImage = 'none';
+
 		if (this.pics[id].match(/\.webm$/) !== null) {
 			Gallery.preload_icon.classList.remove('show');
 			this.player.style.display = 'block';
@@ -354,7 +351,7 @@ var Gallery = {
 
 			this.preload_img.onload = function() {
 				Gallery.preload_icon.classList.remove('show');
-				th.style.backgroundImage = 'url("' + this.src + '")';
+				m.style.backgroundImage = 'url("' + this.src + '")';
 			}
 			this.preload_img.src = this.pics[id];
 		}
