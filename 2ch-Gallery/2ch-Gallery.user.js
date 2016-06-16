@@ -150,7 +150,7 @@ var Gallery_resources = {
 	<rect height="2" width="15" x="7.5" y="14" style="fill:#bbb;"/>\
 	<rect height="15" width="2" x="14" y="7.5" style="fill:#bbb;"/></svg>',
 
-	small_prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(0 -1022.4)">\
+	prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(0 -1022.4)">\
 	<rect height="4" width="4" y="1039.9" x="7.5"/>\
 	<rect height="4" width="4" y="1039.9" x="18.5"/>\
 	<rect height="4" width="4" y="1039.9" x="13"/>\
@@ -161,7 +161,7 @@ var Gallery_resources = {
 	<rect height="4" width="4" y="1030.9" x="18.5"/>\
 	<rect height="4" width="4" y="1030.9" x="13"/></g></svg>',
 
-	large_preview_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(-30 -1022.4)">\
+	large_view_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(-30 -1022.4)">\
 	<rect height="4" width="4" y="1039.9" x="37.5"/>\
 	<rect height="4" width="4" y="1039.9" x="48.5"/>\
 	<rect height="4" width="4" y="1039.9" x="43"/>\
@@ -170,6 +170,7 @@ var Gallery_resources = {
 
 var Gallery = {
 	pics: [],
+	mode: {prevs_only: 0, large_view: 1},
 	current_index: 0,
 	is_visible: false,
 	preload_img: new Image(),
@@ -195,20 +196,19 @@ var Gallery = {
 		document.body.appendChild(this.main_wrap);
 		document.body.appendChild(this.ctrl_btn);
 
-		// TODO: set proper names for these two buttons
 		var button1 = document.createElement('div');
-		button1.id = "mode0";
+		button1.id = "prevs-only-mode";
 		button1.className = 'header-button';
-		button1.innerHTML = Gallery_resources.small_prevs_only_icon_svg;
+		button1.innerHTML = Gallery_resources.prevs_only_icon_svg;
 		button1.addEventListener('click', function() {
-			Gallery.toggleMode(0);
+			Gallery.toggleMode(Gallery.mode.prevs_only);
 		});
 		var button2 = document.createElement('div');
-		button2.id = "mode1";
+		button2.id = "large-view-mode";
 		button2.className = 'header-button checked';
-		button2.innerHTML = Gallery_resources.large_preview_icon_svg;
+		button2.innerHTML = Gallery_resources.large_view_icon_svg;
 		button2.addEventListener('click', function() {
-			Gallery.toggleMode(1);
+			Gallery.toggleMode(Gallery.mode.large_view);
 		});
 
 		var header = document.getElementById("gallery-header");
@@ -269,17 +269,17 @@ var Gallery = {
 		var foo = document.querySelector('#gallery-footer');
 
 		switch(mode) {
-			case 0:
+			case this.mode.prevs_only:
 				foo.classList.remove('bottom');
 				th.style.display = 'none';
-				document.querySelector("#mode0").classList.add("checked");
-				document.querySelector("#mode1").classList.remove("checked");
+				document.querySelector("#prevs-only-mode").classList.add("checked");
+				document.querySelector("#large-view-mode").classList.remove("checked");
 				break;
-			case 1:
+			case this.mode.large_view:
 				foo.classList.add('bottom');
 				th.style.display = 'block';
-				document.querySelector("#mode1").classList.add("checked");
-				document.querySelector("#mode0").classList.remove("checked");
+				document.querySelector("#large-view-mode").classList.add("checked");
+				document.querySelector("#prevs-only-mode").classList.remove("checked");
 				break;
 		}
 	},
@@ -334,7 +334,7 @@ var Gallery = {
 			id = 0;
 
 		this.current_index = id;
-		this.toggleMode(1);
+		this.toggleMode(this.mode.large_view);
 
 		var th = document.querySelector('#gallery-main');
 
