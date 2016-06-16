@@ -171,7 +171,7 @@ var Gallery_resources = {
 var Gallery = {
 	pics: [],
 	mode: {prevs_only: 0, large_view: 1},
-	current_index: 0,
+	current_index: -1,
 	is_visible: false,
 	preload_img: new Image(),
 
@@ -329,8 +329,12 @@ var Gallery = {
 	},
 
 	showImage: function(id) {
-		if (id < 0 || id >= this.pics.length)
+		if (id == this.current_index)
+			return;
+		else if (id >= this.pics.length)
 			id = 0;
+		else if (id < 0)
+			id = this.pics.length - 1;
 
 		this.current_index = id;
 		this.toggleMode(this.mode.large_view);
