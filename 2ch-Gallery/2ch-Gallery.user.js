@@ -7,8 +7,6 @@
 // @grant       none
 // ==/UserScript==
 
-// TODO: create an image for preload icon
-
 var Gallery_resources = {
 	css: "#gallery-wrapper { \
 		position: fixed; \
