@@ -91,7 +91,6 @@ var Gallery_resources = {
 	} \
 	.type-preview { \
 		position: absolute; \
-		cursor: auto; \
 		width: 150px; \
 		height: 150px; \
 		font-size: 2em; \
