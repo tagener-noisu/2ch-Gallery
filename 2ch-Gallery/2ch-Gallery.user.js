@@ -100,7 +100,7 @@ var Gallery_resources = {
 		text-align: center; \
 	} \
 	#gallery-ctrl-btn { \
-		background-color: #444; \
+		background-color: #272727; \
 		position: fixed; \
 		z-index: 101; \
 		width: 30px; \
