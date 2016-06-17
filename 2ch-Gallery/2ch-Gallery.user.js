@@ -119,29 +119,17 @@ var Gallery_resources = {
 		transform: rotate(45deg); \
 		-webkit-transform: rotate(45deg); \
 	} \
-	#preload-icon { \
-		display: none; \
-		position: absolute; \
-		width: 50px; \
-		height: 50px; \
-		z-index: 50; \
-		top: 50%; \
-		left: 50%; \
-		margin: -25px 0px 0px -25px; \
-		background: magenta; \
-	} \
-	#preload-icon.show { \
-		display: block; \
-		animation: 300ms linear 0s normal none infinite running loading; \
+	.anim-preload { \
+		animation: 300ms linear 1s normal none infinite running loading; \
 	} \
 	@keyframes loading { \
-			from {transform: rotate(0deg);-webkit-transform: rotate(0deg);} \
-			to {transform: rotate(90deg);-webkit-transform: rotate(90deg);} \
+			from {transform: rotate(45deg);-webkit-transform: rotate(45deg);} \
+			to {transform: rotate(135deg);-webkit-transform: rotate(135deg);} \
 	}",
 
 	inner_html: '<div id="gallery-header"></div><div id="gallery-main">\
 	<video id="gallery-player" controls="1" loop="1"></video></div>\
-	<div id="gallery-footer" class="bottom"></div><div id="preload-icon"><div>\n',
+	<div id="gallery-footer" class="bottom"></div>\n',
 
 	ctrl_btn_svg: '<svg width="30" height="30">\
 	<rect height="2" width="15" x="7.5" y="14" style="fill:#bbb;"/>\
@@ -214,7 +202,7 @@ var Gallery = {
 
 		this.player = document.querySelector("#gallery-player");
 		this.footer = document.querySelector("#gallery-footer");
-		this.preload_icon = document.querySelector("#preload-icon");
+		this.preload_icon = document.querySelector("#gallery-ctrl-btn svg");
 		this.player.volume = 0.1;
 	},
 
@@ -341,17 +329,17 @@ var Gallery = {
 		m.style.backgroundImage = 'none';
 
 		if (this.pics[id].match(/\.webm$/) !== null) {
-			Gallery.preload_icon.classList.remove('show');
+			Gallery.preload_icon.classList.remove('anim-preload');
 			this.player.style.display = 'block';
 			this.player.src = this.pics[id];
 			this.player.play();
 		}
 		else {
-			this.preload_icon.classList.add('show');
+			this.preload_icon.classList.add('anim-preload');
 			this.player.style.display = 'none';
 
 			this.preload_img.onload = function() {
-				Gallery.preload_icon.classList.remove('show');
+				Gallery.preload_icon.classList.remove('anim-preload');
 				m.style.backgroundImage = 'url("' + this.src + '")';
 			}
 			this.preload_img.src = this.pics[id];
