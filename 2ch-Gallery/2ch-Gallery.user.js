@@ -150,7 +150,12 @@ var Gallery_resources = {
 	<rect height="4" width="4" y="1039.9" x="37.5"/>\
 	<rect height="4" width="4" y="1039.9" x="48.5"/>\
 	<rect height="4" width="4" y="1039.9" x="43"/>\
-	<rect height="8" width="15" y="1030.9" x="37.374"/></g></svg>'
+	<rect height="8" width="15" y="1030.9" x="37.374"/></g></svg>',
+
+	pause_icon_svg: '<svg width="30" height="30"><g fill="#bbb">\
+	<rect height="15" width="4" y="7.5" x="10"/>\
+	<rect height="15" width="4" y="7.5" x="16"/>\
+	</g></svg>'
 };
 
 var Gallery = {
@@ -158,6 +163,7 @@ var Gallery = {
 	mode: {prevs_only: 0, large_view: 1},
 	current_index: -1,
 	is_visible: false,
+	pause_on_close: true,
 	preload_img: new Image(),
 
 	init: function() {
@@ -195,10 +201,26 @@ var Gallery = {
 		button2.addEventListener('click', function() {
 			Gallery.toggleMode(Gallery.mode.large_view);
 		});
+		var button3 = document.createElement('div');
+		button3.id = "pause-on-close";
+		button3.className = 'header-button checked';
+		button3.title = "Pause the player on close?";
+		button3.innerHTML = Gallery_resources.pause_icon_svg;
+		button3.addEventListener('click', function() {
+			if (Gallery.pause_on_close) {
+				Gallery.pause_on_close = false;
+				this.classList.remove('checked');
+			}
+			else {
+				Gallery.pause_on_close = true;
+				this.classList.add('checked');
+			}
+		});
 
 		var header = document.getElementById("gallery-header");
 		header.appendChild(button1);
 		header.appendChild(button2);
+		header.appendChild(button3);
 
 		this.player = document.querySelector("#gallery-player");
 		this.footer = document.querySelector("#gallery-footer");
@@ -236,7 +258,8 @@ var Gallery = {
 		}
 
 		if (this.is_visible) {
-			this.player.pause();
+			if (this.pause_on_close)
+				this.player.pause();
 			this.ctrl_btn.classList.toggle('checked');
 			this.main_wrap.style.display = 'none';
 			this.is_visible = false;
