@@ -239,7 +239,8 @@ var Gallery = {
 
 				var used_keys = {
 					"left_arrow": 37,
-					"right_arrow": 39
+					"right_arrow": 39,
+					"space": 32
 				}
 				switch (e.keyCode) {
 					case used_keys["left_arrow"]:
@@ -248,6 +249,15 @@ var Gallery = {
 
 					case used_keys["right_arrow"]:
 						Gallery.showImage(Gallery.current_index + 1);
+						break;
+
+					case used_keys["space"]:
+						if (Gallery.player.style.display == 'none')
+							return;
+						if (!Gallery.player.paused)
+							Gallery.player.pause();
+						else
+							Gallery.player.play();
 						break;
 
 					default:
