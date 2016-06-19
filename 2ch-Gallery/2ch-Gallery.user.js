@@ -135,22 +135,22 @@ var Gallery_resources = {
 	<rect height="2" width="15" x="7.5" y="14" style="fill:#bbb;"/>\
 	<rect height="15" width="2" x="14" y="7.5" style="fill:#bbb;"/></svg>',
 
-	prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(0 -1022.4)">\
-	<rect height="4" width="4" y="1039.9" x="7.5"/>\
-	<rect height="4" width="4" y="1039.9" x="18.5"/>\
-	<rect height="4" width="4" y="1039.9" x="13"/>\
-	<rect height="4" width="4" y="1035.4" x="7.5"/>\
-	<rect height="4" width="4" y="1035.4" x="18.5"/>\
-	<rect height="4" width="4" y="1035.4" x="13"/>\
-	<rect height="4" width="4" y="1030.9" x="7.5"/>\
-	<rect height="4" width="4" y="1030.9" x="18.5"/>\
-	<rect height="4" width="4" y="1030.9" x="13"/></g></svg>',
+	prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb">\
+	<rect height="4" width="4" y="17.5" x="7.5"/>\
+	<rect height="4" width="4" y="17.5" x="18.5"/>\
+	<rect height="4" width="4" y="17.5" x="13"/>\
+	<rect height="4" width="4" y="13" x="7.5"/>\
+	<rect height="4" width="4" y="13" x="18.5"/>\
+	<rect height="4" width="4" y="13" x="13"/>\
+	<rect height="4" width="4" y="8.5" x="7.5"/>\
+	<rect height="4" width="4" y="8.5" x="18.5"/>\
+	<rect height="4" width="4" y="8.5" x="13"/></g></svg>',
 
-	large_view_icon_svg: '<svg width="30" height="30"><g fill="#bbb" transform="translate(-30 -1022.4)">\
-	<rect height="4" width="4" y="1039.9" x="37.5"/>\
-	<rect height="4" width="4" y="1039.9" x="48.5"/>\
-	<rect height="4" width="4" y="1039.9" x="43"/>\
-	<rect height="8" width="15" y="1030.9" x="37.374"/></g></svg>',
+	large_view_icon_svg: '<svg width="30" height="30"><g fill="#bbb">\
+	<rect height="4" width="4" y="17.5" x="7.5"/>\
+	<rect height="4" width="4" y="17.5" x="18.5"/>\
+	<rect height="4" width="4" y="17.5" x="13"/>\
+	<rect height="8" width="15" y="8.5" x="7.374"/></g></svg>',
 
 	pause_icon_svg: '<svg width="30" height="30"><g fill="#bbb">\
 	<rect height="15" width="4" y="7.5" x="10"/>\
