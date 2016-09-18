@@ -3,7 +3,7 @@
 // @namespace   dot.noisu
 // @include     https://2ch.hk/*/res/*
 // @include     https://2ch.pm/*/res/*
-// @version     1.5
+// @version     1.6
 // @grant       none
 // ==/UserScript==
 
@@ -156,11 +156,31 @@ var Gallery_resources = {
 	</g></svg>'
 };
 
+var MediaType = {
+	webm: 0, gif: 1, static: 2
+}
+var MediaFile = function(src, preview) {
+	this.src = src;
+	this.preview = preview;
+	if (this.src.match(/.webm$/))
+		this.type = MediaType.webm;
+	else if (this.src.match(/.gif$/))
+		this.type = MediaType.gif;
+	else
+		this.type = MediaType.static;
+
+	this.valid = function() {
+		return (!this.src || !this.preview) ? false : true;
+	}
+}
+
 var Gallery = {
-	pics: [],
+	files: [],
+	curr_seq: [],
 	mode: {prevs_only: 0, large_view: 1},
 	current_index: -1,
 	is_visible: false,
+	is_loaded: false,
 	pause_on_close: true,
 	preload_img: new Image(),
 
@@ -227,42 +247,10 @@ var Gallery = {
 	},
 
 	toggle: function() {
-		if (!this.is_created) {
-			this.create();
-			this.is_created = true;
-
-			document.addEventListener('keydown', function(e) {
-				if (!Gallery.is_visible)
-					return;
-
-				var used_keys = {
-					"left_arrow": 37,
-					"right_arrow": 39,
-					"space": 32
-				}
-				switch (e.keyCode) {
-					case used_keys["left_arrow"]:
-						Gallery.showImage(Gallery.current_index - 1);
-						break;
-
-					case used_keys["right_arrow"]:
-						Gallery.showImage(Gallery.current_index + 1);
-						break;
-
-					case used_keys["space"]:
-						if (Gallery.player.style.display == 'none')
-							return;
-						if (!Gallery.player.paused)
-							Gallery.player.pause();
-						else
-							Gallery.player.play();
-						break;
-
-					default:
-						return;
-				}
-				e.preventDefault();
-			}, 'false');
+		if (!this.is_loaded) {
+			this.load();
+			this.is_loaded = true;
+			this._previewSeq(this.files);
 		}
 
 		if (this.is_visible) {
@@ -299,58 +287,88 @@ var Gallery = {
 		}
 	},
 
-	create: function() {
+	load: function() {
 		var thumbs = document.querySelectorAll('.preview');
 
-		for (var i = 0, len = thumbs.length; i != len; ++i)
-			this.addPreview(thumbs[i]);
+		for (var i = 0, len = thumbs.length; i != len; ++i) {
+			var mf = new MediaFile(thumbs[i].parentNode.href,
+					       thumbs[i].src);
+			if (!mf.valid) continue;
 
-		if (this.pics.length != 0)
-			this.showImage(0);
-	},
-
-	addPreview: function(thumb_obj) {
-		var preview = thumb_obj.src;
-		var full_size = thumb_obj.parentNode.href;
-
-		if (!preview || !full_size)
-			return 1;
-
-		if (this.pics.indexOf(full_size) != -1)
-			return;
-
-		var new_icon = document.createElement('a');
-		new_icon.className = "gallery-preview";
-		new_icon.id = this.pics.length;
-		new_icon.style.backgroundImage = 'url("' + preview + '")';
-		new_icon.href = full_size;
-
-		var ext = full_size.match(/\w+$/)[0];
-		var special_type = ["webm", "gif"].indexOf(ext);
-		if (special_type != -1) {
-			var type_label = document.createElement('div');
-			type_label.className = 'type-preview';
-			type_label.innerHTML = ["webm", "gif"][special_type];
-			new_icon.appendChild(type_label);
+			var exists = this.files.some(function(x) {
+				return x.src === mf.src ? true : false;
+			});
+			if (!exists) this.files.push(mf);
 		}
 
-		new_icon.addEventListener('click', function(e) {
-			var a = parseInt(this.id);
-			Gallery.showImage(a);
-			e.preventDefault();
-		}, 'false');
+		document.addEventListener('keydown', function(e) {
+			if (!Gallery.is_visible || !Gallery.is_loaded)
+				return;
 
-		this.footer.appendChild(new_icon);
-		this.pics.push(full_size);
+			var used_keys = {
+				left_arrow: 37,
+				right_arrow: 39,
+				space: 32
+			}
+			switch (e.keyCode) {
+				case used_keys.left_arrow:
+					Gallery.showPrev();
+					break;
+
+				case used_keys.right_arrow:
+					Gallery.showNext();
+					break;
+
+				case used_keys.space:
+					if (!Gallery.player.paused)
+						Gallery.player.pause();
+					else
+						Gallery.player.play();
+					break;
+
+				default: return;
+			}
+			e.preventDefault();
+		});
 	},
 
-	showImage: function(id) {
+	_previewSeq: function(seq) {
+		if (seq.length === 0) return;
+
+		this.footer.innerHTML = "";
+		this.curr_seq = seq;
+		for (var i = 0, len = seq.length; i < len; ++i)
+			this.footer.appendChild(
+				this._genPreviewDiv(seq[i], i));
+		this.show(0);
+	},
+
+	_genPreviewDiv: function(media_file, index) {
+		var res = document.createElement('div');
+		res.className = "gallery-preview";
+		res.id = index;
+		res.style.backgroundImage = 'url("' + media_file.preview + '")';
+		res.href = media_file.src;
+		res.addEventListener("click", function() {
+			Gallery.show(parseInt(this.id));
+		});
+
+		if (media_file.type != MediaType.static) {
+			var type_label = document.createElement('div');
+			type_label.className = 'type-preview';
+			type_label.innerHTML = ["webm", "gif"][media_file.type];
+			res.appendChild(type_label);
+		}
+		return res;
+	},
+
+	show: function(id) {
 		if (id == this.current_index)
 			return;
-		else if (id >= this.pics.length)
+		else if (id >= this.curr_seq.length)
 			id = 0;
 		else if (id < 0)
-			id = this.pics.length - 1;
+			id = this.curr_seq.length - 1;
 
 		this.current_index = id;
 		this.toggleMode(this.mode.large_view);
@@ -359,10 +377,12 @@ var Gallery = {
 		var m = document.querySelector('#gallery-main');
 		m.style.backgroundImage = 'none';
 
-		if (this.pics[id].match(/\.webm$/) !== null) {
-			Gallery.preload_icon.classList.remove('anim-preload');
+		var media_file = this.curr_seq[id];
+
+		if (media_file.type === MediaType.webm) {
+			this.preload_icon.classList.remove('anim-preload');
 			this.player.style.display = 'block';
-			this.player.src = this.pics[id];
+			this.player.src = media_file.src;
 			this.player.play();
 		}
 		else {
@@ -373,12 +393,20 @@ var Gallery = {
 				Gallery.preload_icon.classList.remove('anim-preload');
 				m.style.backgroundImage = 'url("' + this.src + '")';
 			}
-			this.preload_img.src = this.pics[id];
+			this.preload_img.src = media_file.src;
 		}
 
 		var preview_width = 150; // px
 		this.footer.scrollLeft = preview_width * id -
 			document.body.clientWidth / 2 + preview_width / 2;
+	},
+
+	showNext: function() {
+		this.show(this.current_index + 1);
+	},
+
+	showPrev: function() {
+		this.show(this.current_index - 1);
 	}
 };
 
