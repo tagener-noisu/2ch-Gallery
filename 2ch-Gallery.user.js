@@ -36,6 +36,21 @@ var Gallery_resources = {
 		background-image: inherit; \
 		z-index: 2; \
 	} \
+	.header-element { \
+		display: inline-block; \
+		height: 32px; \
+		color: #BBB; \
+		margin: 0 2px; \
+	} \
+	.header-element select { \
+		position: fixed; \
+		height: 32px; \
+		border: solid 1px #000; \
+		border-radius: 4px; \
+		background-color: rgba(0,0,0,0.3); \
+		color: inherit; \
+		text-align: center; \
+	} \
 	.header-button { \
 		display: inline-block; \
 		width: 30px; \
@@ -157,7 +172,7 @@ var Gallery_resources = {
 };
 
 var MediaType = {
-	webm: 0, gif: 1, static: 2
+	webm: 0, gif: 1, static: 2, all: 3
 }
 var MediaFile = function(src, preview) {
 	this.src = src;
@@ -235,15 +250,41 @@ var Gallery = {
 			}
 		});
 
+		var wrap = document.createElement("div");
+		wrap.className = "header-element";
+		var select = document.createElement("select");
+		select.innerHTML = '<option>WEBM only</option>' +
+			'<option>GIF only</option>' +
+			'<option>Pics only</option>' +
+			'<option selected="">All</option>';
+		select.addEventListener("change", function() {
+			Gallery.showByType(this.selectedIndex);
+		});
+		wrap.appendChild(select);
+
+
 		var header = document.getElementById("gallery-header");
 		header.appendChild(button1);
 		header.appendChild(button2);
 		header.appendChild(button3);
+		header.appendChild(wrap);
 
 		this.player = document.querySelector("#gallery-player");
+		this.canvas = document.querySelector("#gallery-main");
 		this.footer = document.querySelector("#gallery-footer");
 		this.preload_icon = document.querySelector("#gallery-ctrl-btn svg");
 		this.player.volume = 0.1;
+	},
+
+	showByType: function(type) {
+		if (type === MediaType.all) {
+			this._previewSeq(this.files);
+			return;
+		}
+		var new_seq = this.files.filter(function(x) {
+			if (x.type === type) return x;
+		});
+		this._previewSeq(new_seq);
 	},
 
 	toggle: function() {
@@ -363,19 +404,16 @@ var Gallery = {
 	},
 
 	show: function(id) {
-		if (id == this.current_index)
-			return;
-		else if (id >= this.curr_seq.length)
+		if (id >= this.curr_seq.length)
 			id = 0;
 		else if (id < 0)
 			id = this.curr_seq.length - 1;
 
 		this.current_index = id;
 		this.toggleMode(this.mode.large_view);
-		this.player.pause();
 
-		var m = document.querySelector('#gallery-main');
-		m.style.backgroundImage = 'none';
+		this.canvas.style.backgroundImage = 'none';
+		this.player.pause();
 
 		var media_file = this.curr_seq[id];
 
@@ -391,7 +429,8 @@ var Gallery = {
 
 			this.preload_img.onload = function() {
 				Gallery.preload_icon.classList.remove('anim-preload');
-				m.style.backgroundImage = 'url("' + this.src + '")';
+				Gallery.canvas.style.backgroundImage = 'url("' +
+						this.src + '")';
 			}
 			this.preload_img.src = media_file.src;
 		}
