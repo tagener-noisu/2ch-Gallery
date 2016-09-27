@@ -1,6 +1,6 @@
 ##2ch-Gallery
 
-An userscript that creates gallery view for russian imageboard _2ch_.
+A userscript that creates a gallery view for the russian imageboard _2ch_.
 
 #####Installation
 - Install browser specific add-on eg. **Greasemonkey**.
@@ -9,9 +9,7 @@ An userscript that creates gallery view for russian imageboard _2ch_.
 - PROFIT!
 
 #####Feautures
-- Arrow keys support, so you can scroll you pictures while holding a cup of tea!
-- WebM support - we don't want to miss such a thing, do we?
-- It loads only when you ask to, hence it doesn't slow page loading.
-
-#####Other
-It wasn't created specially for 2ch, it's a port from other usersript, which is now a part of the other userscript, so it's now discontinued. Anyway i would be glad to see your pull requests and issue reports.
+- Arrow keys support, so you can scroll your pictures and hold a cup of tea!
+- WebM support.
+- Content filtering support.
+- It loads only when you ask, hence it doesn't slow the page loading.
