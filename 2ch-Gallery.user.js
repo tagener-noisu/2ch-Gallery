@@ -133,11 +133,13 @@ var Gallery_resources = {
 		-webkit-transform: rotate(45deg); \
 	} \
 	.anim-preload { \
-		animation: 300ms linear 1s normal none infinite running loading; \
+		animation: 300ms linear 1s infinite loading; \
 	} \
 	@keyframes loading { \
-			from {transform: rotate(45deg);-webkit-transform: rotate(45deg);} \
-			to {transform: rotate(135deg);-webkit-transform: rotate(135deg);} \
+			from {transform: rotate(45deg);\
+			      -webkit-transform: rotate(45deg);} \
+			to {transform: rotate(135deg);\
+			    -webkit-transform: rotate(135deg);} \
 	}",
 
 	inner_html: '<div id="gallery-header"></div><div id="gallery-main">\
@@ -272,7 +274,8 @@ var Gallery = {
 		this.player = document.querySelector("#gallery-player");
 		this.canvas = document.querySelector("#gallery-main");
 		this.footer = document.querySelector("#gallery-footer");
-		this.preload_icon = document.querySelector("#gallery-ctrl-btn svg");
+		this.preload_icon = document.
+			querySelector("#gallery-ctrl-btn svg");
 		this.player.volume = 0.1;
 	},
 
@@ -316,14 +319,18 @@ var Gallery = {
 			case this.mode.prevs_only:
 				f.classList.remove('bottom');
 				m.style.display = 'none';
-				document.querySelector("#prevs-only-mode").classList.add("checked");
-				document.querySelector("#large-view-mode").classList.remove("checked");
+				document.querySelector("#prevs-only-mode").
+					classList.add("checked");
+				document.querySelector("#large-view-mode").
+					classList.remove("checked");
 				break;
 			case this.mode.large_view:
 				f.classList.add('bottom');
 				m.style.display = 'block';
-				document.querySelector("#large-view-mode").classList.add("checked");
-				document.querySelector("#prevs-only-mode").classList.remove("checked");
+				document.querySelector("#large-view-mode").
+					classList.add("checked");
+				document.querySelector("#prevs-only-mode").
+					classList.remove("checked");
 				break;
 		}
 	},
@@ -428,9 +435,10 @@ var Gallery = {
 			this.player.style.display = 'none';
 
 			this.preload_img.onload = function() {
-				Gallery.preload_icon.classList.remove('anim-preload');
-				Gallery.canvas.style.backgroundImage = 'url("' +
-						this.src + '")';
+				Gallery.preload_icon.classList.
+					remove('anim-preload');
+				Gallery.canvas.style.backgroundImage =
+					'url("' + this.src + '")';
 			}
 			this.preload_img.src = media_file.src;
 		}
