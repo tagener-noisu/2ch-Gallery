@@ -1,9 +1,11 @@
 // ==UserScript==
-// @name        2ch-Gallery
+// @name        Imageboard-Gallery
 // @namespace   dot.noisu
 // @include     https://2ch.hk/*/res/*
 // @include     https://2ch.pm/*/res/*
-// @version     1.6
+// @include     http://dobrochan.ru/*/res/*
+// @include     http://dobrochan.com/*/res/*
+// @version     2.0
 // @grant       none
 // ==/UserScript==
 
@@ -61,6 +63,7 @@ var Gallery_resources = {
 		margin: 0 2px; \
 	} \
 	.header-button.checked { \
+		background-image: none; \
 		background-color: rgba(0,0,0,0.3); \
 	} \
 	#gallery-main { \
@@ -336,7 +339,10 @@ var Gallery = {
 	},
 
 	load: function() {
-		var thumbs = document.querySelectorAll('.preview');
+		if (document.location.href.match(/https?:\/\/dobro/))
+			var thumbs = document.querySelectorAll('.thumb');
+		else
+			var thumbs = document.querySelectorAll('.preview');
 
 		for (var i = 0, len = thumbs.length; i != len; ++i) {
 			var mf = new MediaFile(thumbs[i].parentNode.href,

@@ -1,10 +1,11 @@
-##2ch-Gallery
+##Imageboard-Gallery
 
-A userscript that creates a gallery view for the russian imageboard _2ch_.
+A userscript that creates a gallery view for the russian imageboards _2ch_ and _dobrochan_
 
 #####Installation
 - Install browser specific add-on eg. **Greasemonkey**.
-- Open `2ch-Gallery` directory in this repo and click `Raw`.
+- Open `Imageboard-Gallery` directory in this repo and click `Raw` to get the latest update.
+- Or open `releases', download and install it manually to get the stable release.
 - Open some thread - you'll see what to do.
 - PROFIT!
 
