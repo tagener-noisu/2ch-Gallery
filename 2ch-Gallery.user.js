@@ -459,3 +459,4 @@ var Gallery = {
 
 
 window.addEventListener("DOMContentLoaded", Gallery.init(), "false");
+// vim:ts=8:sw=8:
