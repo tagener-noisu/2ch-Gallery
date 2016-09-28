@@ -5,7 +5,7 @@
 // @include     https://2ch.pm/*/res/*
 // @include     http://dobrochan.ru/*/res/*
 // @include     http://dobrochan.com/*/res/*
-// @version     2.0
+// @version     2.0.1
 // @grant       none
 // ==/UserScript==
 
@@ -116,7 +116,6 @@ var Gallery_resources = {
 		text-align: center; \
 	} \
 	#gallery-ctrl-btn { \
-		background-color: #272727; \
 		position: fixed; \
 		z-index: 101; \
 		width: 30px; \
