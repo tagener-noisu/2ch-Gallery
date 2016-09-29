@@ -371,13 +371,18 @@ var Gallery = {
 			var used_keys = {
 				left_arrow: 37,
 				right_arrow: 39,
-				space: 32
+				space: 32,
+				key_q: 81,
+				key_h: 72,
+				key_l: 76
 			}
 			switch (e.keyCode) {
+				case used_keys.key_h:
 				case used_keys.left_arrow:
 					Gallery.showPrev();
 					break;
 
+				case used_keys.key_l:
 				case used_keys.right_arrow:
 					Gallery.showNext();
 					break;
@@ -388,6 +393,9 @@ var Gallery = {
 					else
 						Gallery.player.play();
 					break;
+
+				case used_keys.key_q:
+					Gallery.toggle();
 
 				default: return;
 			}
