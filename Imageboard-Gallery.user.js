@@ -193,6 +193,17 @@ var MediaFile = function(src, preview) {
 	}
 }
 
+var create_element = function(tag, props) {
+	if (!tag) throw TypeError("Tag name is undefined");
+	var res = document.createElement(tag);
+	if (props) {
+		var keys = Object.keys(props);
+		for (var i in keys)
+			res[keys[i]] = props[keys[i]];
+	}
+	return res;
+}
+
 var Gallery = {
 	files: [],
 	curr_seq: [],
@@ -204,19 +215,22 @@ var Gallery = {
 	preload_img: new Image(),
 
 	init: function() {
-		var styles = document.createElement('style');
-		styles.innerHTML = Gallery_resources.css;
+		var styles = create_element('style', {
+			innerHTML: Gallery_resources.css
+		});
 		document.head.appendChild(styles);
 
-		this.main_wrap = document.createElement('div');
-		this.main_wrap.id = 'gallery-wrapper';
+		this.main_wrap = create_element('div', {
+			id: 'gallery-wrapper',
+			innerHTML: Gallery_resources.inner_html
+		});
 		this.main_wrap.style.display = 'none';
-		this.main_wrap.innerHTML = Gallery_resources.inner_html;
 
-		this.ctrl_btn = document.createElement('div');
-		this.ctrl_btn.innerHTML = Gallery_resources.ctrl_btn_svg;
-		this.ctrl_btn.id = 'gallery-ctrl-btn';
-		this.ctrl_btn.className = 'header-button';
+		this.ctrl_btn = create_element('div', {
+			id: 'gallery-ctrl-btn',
+			className: 'header-button',
+			innerHTML: Gallery_resources.ctrl_btn_svg
+		});
 		this.ctrl_btn.addEventListener('click', function() {
 			Gallery.toggle();
 		}, 'false');
@@ -224,25 +238,30 @@ var Gallery = {
 		document.body.appendChild(this.main_wrap);
 		document.body.appendChild(this.ctrl_btn);
 
-		var button1 = document.createElement('div');
-		button1.id = "prevs-only-mode";
-		button1.className = 'header-button';
-		button1.innerHTML = Gallery_resources.prevs_only_icon_svg;
+		var button1 = create_element('div', {
+			id: "prevs-only-mode",
+			className: 'header-button',
+			innerHTML: Gallery_resources.prevs_only_icon_svg
+		});
 		button1.addEventListener('click', function() {
 			Gallery.toggleMode(Gallery.mode.prevs_only);
 		});
-		var button2 = document.createElement('div');
-		button2.id = "large-view-mode";
-		button2.className = 'header-button checked';
-		button2.innerHTML = Gallery_resources.large_view_icon_svg;
+
+		var button2 = create_element('div', {
+			id: "large-view-mode",
+			className: 'header-button checked',
+			innerHTML: Gallery_resources.large_view_icon_svg
+		});
 		button2.addEventListener('click', function() {
 			Gallery.toggleMode(Gallery.mode.large_view);
 		});
-		var button3 = document.createElement('div');
-		button3.id = "pause-on-close";
-		button3.className = 'header-button checked';
-		button3.title = "Pause the player on close?";
-		button3.innerHTML = Gallery_resources.pause_icon_svg;
+
+		var button3 = create_element('div', {
+			id: "pause-on-close",
+			className: 'header-button checked',
+			title: "Pause the player on close?",
+			innerHTML: Gallery_resources.pause_icon_svg
+		});
 		button3.addEventListener('click', function() {
 			if (Gallery.pause_on_close) {
 				Gallery.pause_on_close = false;
@@ -254,24 +273,26 @@ var Gallery = {
 			}
 		});
 
-		var wrap = document.createElement("div");
-		wrap.className = "header-element";
-		var select = document.createElement("select");
-		select.innerHTML = '<option>WEBM only</option>' +
-			'<option>GIF only</option>' +
-			'<option>Pics only</option>' +
-			'<option selected="">All</option>';
-		select.addEventListener("change", function() {
+		var wrap1 = create_element('div', {
+			className: "header-element"
+		});
+		var content_select = create_element("select", {
+			innerHTML: '<option>WEBM only</option>' +
+				   '<option>GIF only</option>' +
+				   '<option>Pics only</option>' +
+				   '<option selected="">All</option>'
+		});
+		content_select.addEventListener("change", function() {
 			Gallery.showByType(this.selectedIndex);
 		});
-		wrap.appendChild(select);
+		wrap1.appendChild(content_select);
 
 
 		var header = document.getElementById("gallery-header");
 		header.appendChild(button1);
 		header.appendChild(button2);
 		header.appendChild(button3);
-		header.appendChild(wrap);
+		header.appendChild(wrap1);
 
 		this.player = document.querySelector("#gallery-player");
 		this.canvas = document.querySelector("#gallery-main");
@@ -397,19 +418,21 @@ var Gallery = {
 	},
 
 	_genPreviewDiv: function(media_file, index) {
-		var res = document.createElement('div');
-		res.className = "gallery-preview";
-		res.id = index;
-		res.style.backgroundImage = 'url("' + media_file.preview + '")';
-		res.href = media_file.src;
+		var res = create_element('div', {
+			className: "gallery-preview",
+			id: index,
+			href: media_file.src
+		});
+		res.style.backgroundImage = 'url("'+media_file.preview+'")';
 		res.addEventListener("click", function() {
 			Gallery.show(parseInt(this.id));
 		});
 
 		if (media_file.type != MediaType.static) {
-			var type_label = document.createElement('div');
-			type_label.className = 'type-preview';
-			type_label.innerHTML = ["webm", "gif"][media_file.type];
+			var type_label = create_element('div', {
+				className: 'type-preview',
+				innerHTML: ["webm", "gif"][media_file.type]
+			});
 			res.appendChild(type_label);
 		}
 		return res;
