@@ -9,7 +9,7 @@
 // @grant       none
 // ==/UserScript==
 
-var Gallery_resources = {
+var GalleryResources = {
 	css: "#gallery-wrapper { \
 		position: fixed; \
 		z-index: 100; \
@@ -216,20 +216,20 @@ var Gallery = {
 
 	init: function() {
 		var styles = create_element('style', {
-			innerHTML: Gallery_resources.css
+			innerHTML: GalleryResources.css
 		});
 		document.head.appendChild(styles);
 
 		this.main_wrap = create_element('div', {
 			id: 'gallery-wrapper',
-			innerHTML: Gallery_resources.inner_html
+			innerHTML: GalleryResources.inner_html
 		});
 		this.main_wrap.style.display = 'none';
 
 		this.ctrl_btn = create_element('div', {
 			id: 'gallery-ctrl-btn',
 			className: 'header-button',
-			innerHTML: Gallery_resources.ctrl_btn_svg
+			innerHTML: GalleryResources.ctrl_btn_svg
 		});
 		this.ctrl_btn.addEventListener('click', function() {
 			Gallery.toggle();
@@ -241,7 +241,7 @@ var Gallery = {
 		var button1 = create_element('div', {
 			id: "prevs-only-mode",
 			className: 'header-button',
-			innerHTML: Gallery_resources.prevs_only_icon_svg
+			innerHTML: GalleryResources.prevs_only_icon_svg
 		});
 		button1.addEventListener('click', function() {
 			Gallery.toggleMode(Gallery.mode.prevs_only);
@@ -250,7 +250,7 @@ var Gallery = {
 		var button2 = create_element('div', {
 			id: "large-view-mode",
 			className: 'header-button checked',
-			innerHTML: Gallery_resources.large_view_icon_svg
+			innerHTML: GalleryResources.large_view_icon_svg
 		});
 		button2.addEventListener('click', function() {
 			Gallery.toggleMode(Gallery.mode.large_view);
@@ -260,7 +260,7 @@ var Gallery = {
 			id: "pause-on-close",
 			className: 'header-button checked',
 			title: "Pause the player on close?",
-			innerHTML: Gallery_resources.pause_icon_svg
+			innerHTML: GalleryResources.pause_icon_svg
 		});
 		button3.addEventListener('click', function() {
 			if (Gallery.pause_on_close) {
