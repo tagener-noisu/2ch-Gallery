@@ -302,17 +302,6 @@ var Gallery = {
 		this.player.volume = 0.1;
 	},
 
-	showByType: function(type) {
-		if (type === MediaType.all) {
-			this._previewSeq(this.files);
-			return;
-		}
-		var new_seq = this.files.filter(function(x) {
-			if (x.type === type) return x;
-		});
-		this._previewSeq(new_seq);
-	},
-
 	toggle: function() {
 		if (!this.is_loaded) {
 			this.load();
@@ -482,6 +471,17 @@ var Gallery = {
 
 	showPrev: function() {
 		this.show(this.current_index - 1);
+	},
+
+	showByType: function(type) {
+		if (type === MediaType.all) {
+			this._previewSeq(this.files);
+			return;
+		}
+		var new_seq = this.files.filter(function(x) {
+			if (x.type === type) return x;
+		});
+		this._previewSeq(new_seq);
 	}
 };
 
