@@ -388,14 +388,19 @@ var Gallery = {
 					break;
 
 				case used_keys.space:
-					if (!Gallery.player.paused)
-						Gallery.player.pause();
-					else
+					if (Gallery.player.style.display
+					    == 'none')
+						return;
+
+					if (Gallery.player.paused)
 						Gallery.player.play();
+					else
+						Gallery.player.pause();
 					break;
 
 				case used_keys.key_q:
 					Gallery.toggle();
+					break;
 
 				default: return;
 			}
