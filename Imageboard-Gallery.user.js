@@ -206,7 +206,7 @@ var MediaFile = function(src, preview) {
 		this.type = MediaType.static;
 
 	this.valid = function() {
-		return (!this.src || !this.preview) ? false : true;
+		return (!this.src || !this.preview);
 	}
 }
 
@@ -376,7 +376,7 @@ var Gallery = {
 			if (!mf.valid) continue;
 
 			var exists = this.files.some(function(x) {
-				return x.src === mf.src ? true : false;
+				return (x.src === mf.src);
 			});
 			if (!exists) this.files.push(mf);
 		}
