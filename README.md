@@ -4,7 +4,7 @@ A userscript that creates a gallery view for the russian imageboards _2ch_ and _
 
 #####Installation
 - Install browser specific add-on eg. **Greasemonkey**.
-- Open `Imageboard-Gallery` directory in this repo and click `Raw` to get the latest update.
+- [Click here](https://github.com/tagener-noisu/Imageboard-Gallery/raw/master/Imageboard-Gallery.user.js) to get the latest update.
 - Or open `releases', download and install it manually to get the stable release.
 - Open some thread - you'll see what to do.
 - PROFIT!
