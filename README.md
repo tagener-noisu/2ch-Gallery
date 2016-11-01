@@ -9,7 +9,7 @@ A userscript that creates a gallery view for the russian imageboards _2ch_ and _
 - Open some thread - you'll see what to do.
 - PROFIT!
 
-#####Feautures
+#####Features
 - Arrow keys support, so you can scroll your pictures and hold a cup of tea!
 - WebM support.
 - Content filtering support.
