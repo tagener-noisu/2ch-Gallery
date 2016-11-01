@@ -5,6 +5,7 @@
 // @include     https://2ch.pm/*/res/*
 // @include     http://dobrochan.ru/*/res/*
 // @include     http://dobrochan.com/*/res/*
+// @include     https://boards.4chan.org/*/thread/*
 // @version     2.0.1
 // @grant       none
 // ==/UserScript==
@@ -367,6 +368,9 @@ var Gallery = {
 	load: function() {
 		if (document.location.href.match(/https?:\/\/dobro/))
 			var thumbs = document.querySelectorAll('.thumb');
+		else if (document.location.href.match(/https?:\/\/boards.4ch/))
+			var thumbs = document.
+				querySelectorAll('.fileThumb img');
 		else
 			var thumbs = document.querySelectorAll('.preview');
 
