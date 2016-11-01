@@ -1,6 +1,6 @@
 ##Imageboard-Gallery
 
-A userscript that creates a gallery view for the russian imageboards _2ch_ and _dobrochan_
+A userscript that creates a gallery for the imageboards _2ch_, _dobrochan_ and _4chan_
 
 #####Installation
 - Install browser specific add-on eg. **Greasemonkey**.
