@@ -443,14 +443,15 @@ var Gallery = {
 	},
 
 	_genPreviewDiv: function(media_file, index) {
-		var res = create_element('div', {
+		var res = create_element('a', {
 			className: "gallery-preview",
 			id: index,
 			href: media_file.src
 		});
 		res.style.backgroundImage = 'url("'+media_file.preview+'")';
-		res.addEventListener("click", function() {
+		res.addEventListener("click", function(e) {
 			Gallery.show(parseInt(this.id));
+			e.preventDefault();
 		});
 
 		if (media_file.type != MediaType.static) {
