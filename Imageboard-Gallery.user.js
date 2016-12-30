@@ -212,7 +212,7 @@ var MediaFile = function(src, preview) {
 		this.type = MediaType.static;
 
 	this.valid = function() {
-		return (!this.src || !this.preview);
+		return this.src && this.preview;
 	}
 }
 
@@ -379,7 +379,7 @@ var Gallery = {
 		for (var i = 0, len = thumbs.length; i != len; ++i) {
 			var mf = new MediaFile(thumbs[i].parentNode.href,
 					       thumbs[i].src);
-			if (!mf.valid) continue;
+			if (!mf.valid()) continue;
 
 			var exists = this.files.some(function(x) {
 				return (x.src === mf.src);
