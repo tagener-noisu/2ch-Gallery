@@ -170,6 +170,11 @@ var GalleryResources = {
 	<rect height="2" width="15" x="7.5" y="14" style="fill:#bbb;"/>\
 	<rect height="15" width="2" x="14" y="7.5" style="fill:#bbb;"/></svg>',
 
+	mode_select_inner_html: '<option>WEBM only</option>' +
+				'<option>GIF only</option>' +
+				'<option>Pics only</option>' +
+				'<option selected="">All</option>',
+
 	prevs_only_icon_svg: '<svg width="30" height="30"><g fill="#bbb">\
 	<rect height="4" width="4" y="17.5" x="7.5"/>\
 	<rect height="4" width="4" y="17.5" x="18.5"/>\
@@ -295,10 +300,7 @@ var Gallery = {
 			className: "header-element"
 		});
 		var content_select = create_element("select", {
-			innerHTML: '<option>WEBM only</option>' +
-				   '<option>GIF only</option>' +
-				   '<option>Pics only</option>' +
-				   '<option selected="">All</option>'
+			innerHTML: GalleryResources.mode_select_inner_html
 		});
 		content_select.addEventListener("change", function() {
 			Gallery.showByType(this.selectedIndex);
