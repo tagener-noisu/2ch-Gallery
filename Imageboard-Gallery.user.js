@@ -445,12 +445,12 @@ var Gallery = {
 	_genPreviewDiv: function(media_file, index) {
 		var res = create_element('a', {
 			className: "gallery-preview",
-			id: index,
+			id: "prev_" + index,
 			href: media_file.src
 		});
 		res.style.backgroundImage = 'url("'+media_file.preview+'")';
 		res.addEventListener("click", function(e) {
-			Gallery.show(parseInt(this.id));
+			Gallery.show(parseInt(this.id.match(/\d+$/)[0]));
 			e.preventDefault();
 		});
 
