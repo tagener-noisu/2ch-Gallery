@@ -318,8 +318,7 @@ var Gallery = {
 		this.player = document.querySelector("#gallery-player");
 		this.canvas = document.querySelector("#gallery-main");
 		this.footer = document.querySelector("#gallery-footer");
-		this.preload_icon = document.
-			querySelector("#gallery-ctrl-btn svg");
+		this.preload_icon = document.querySelector("#gallery-ctrl-btn svg");
 		this.player.volume = 0.1;
 	},
 
@@ -372,14 +371,12 @@ var Gallery = {
 		if (document.location.href.match(/https?:\/\/dobro/))
 			var thumbs = document.querySelectorAll('.thumb');
 		else if (document.location.href.match(/https?:\/\/boards.4ch/))
-			var thumbs = document.
-				querySelectorAll('.fileThumb img');
+			var thumbs = document.querySelectorAll('.fileThumb img');
 		else
 			var thumbs = document.querySelectorAll('.preview');
 
 		for (var i = 0, len = thumbs.length; i != len; ++i) {
-			var mf = new MediaFile(thumbs[i].parentNode.href,
-					       thumbs[i].src);
+			var mf = new MediaFile(thumbs[i].parentNode.href, thumbs[i].src);
 			if (!mf.valid()) continue;
 
 			var exists = this.files.some(function(x) {
@@ -438,8 +435,7 @@ var Gallery = {
 		this.footer.innerHTML = "";
 		this.curr_seq = seq;
 		for (var i = 0, len = seq.length; i < len; ++i)
-			this.footer.appendChild(
-				this._genPreviewDiv(seq[i], i));
+			this.footer.appendChild(this._genPreviewDiv(seq[i], i));
 		this.show(0);
 	},
 
@@ -490,8 +486,7 @@ var Gallery = {
 			this.player.style.display = 'none';
 
 			this.preload_img.onload = function() {
-				Gallery.preload_icon.classList.
-					remove('anim-preload');
+				Gallery.preload_icon.classList.remove('anim-preload');
 				Gallery.canvas.style.backgroundImage =
 					'url("' + this.src + '")';
 			}
@@ -525,4 +520,4 @@ var Gallery = {
 
 
 window.addEventListener("DOMContentLoaded", Gallery.init(), "false");
-// vim:ts=8:sw=8:
+// vim:ts=4:sw=4:
