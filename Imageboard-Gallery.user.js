@@ -409,7 +409,7 @@ var Gallery = {
 					break;
 
 				case used_keys.space:
-					if (Gallery.player.style.display === 'none')
+					if (Gallery.player.style.display == 'none')
 						return;
 
 					if (Gallery.player.paused)
