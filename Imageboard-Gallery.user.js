@@ -218,7 +218,7 @@ var MediaFile = function(src, preview) {
 }
 
 var create_element = function(tag, props) {
-	if (!tag) throw TypeError("Tag name is undefined");
+	if (!tag) throw new TypeError("Tag name is undefined");
 	var res = document.createElement(tag);
 	if (props) {
 		var keys = Object.keys(props);
