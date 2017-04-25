@@ -6,7 +6,7 @@
 // @include     http://dobrochan.ru/*/res/*
 // @include     http://dobrochan.com/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.2
+// @version     2.0.3
 // @grant       none
 // ==/UserScript==
 
