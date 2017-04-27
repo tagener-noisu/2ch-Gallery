@@ -208,7 +208,7 @@ var MediaFile = function(src, preview) {
 	var ext = this.src.match(/\.[^.]+$/);
 	if (!ext)
 		throw new Error("The URL doesn't have the extension");
-	if (ext[0] === ".webm")
+	if (ext[0] === ".webm" || ext[0] === ".mp4")
 		this.type = MediaType.webm;
 	else if (ext[0] === ".gif")
 		this.type = MediaType.gif;
