@@ -242,6 +242,8 @@ var Gallery = {
 	preload_img: new Image(),
 
 	init: function() {
+		var self = this;
+
 		var styles = create_element('style', {
 			innerHTML: GalleryResources.css
 		});
@@ -259,7 +261,7 @@ var Gallery = {
 			innerHTML: GalleryResources.ctrl_btn_svg
 		});
 		this.ctrl_btn.addEventListener('click', function() {
-			Gallery.toggle();
+			self.toggle();
 		}, 'false');
 
 		document.body.appendChild(this.main_wrap);
@@ -271,7 +273,7 @@ var Gallery = {
 			innerHTML: GalleryResources.prevs_only_icon_svg
 		});
 		button1.addEventListener('click', function() {
-			Gallery.toggleMode(Gallery.mode.prevs_only);
+			self.toggleMode(self.mode.prevs_only);
 		});
 
 		var button2 = create_element('div', {
@@ -280,7 +282,7 @@ var Gallery = {
 			innerHTML: GalleryResources.large_view_icon_svg
 		});
 		button2.addEventListener('click', function() {
-			Gallery.toggleMode(Gallery.mode.large_view);
+			self.toggleMode(self.mode.large_view);
 		});
 
 		var button3 = create_element('div', {
@@ -290,12 +292,12 @@ var Gallery = {
 			innerHTML: GalleryResources.pause_icon_svg
 		});
 		button3.addEventListener('click', function() {
-			if (Gallery.pause_on_close) {
-				Gallery.pause_on_close = false;
+			if (self.pause_on_close) {
+				self.pause_on_close = false;
 				this.classList.remove('checked');
 			}
 			else {
-				Gallery.pause_on_close = true;
+				self.pause_on_close = true;
 				this.classList.add('checked');
 			}
 		});
@@ -307,10 +309,9 @@ var Gallery = {
 			innerHTML: GalleryResources.mode_select_inner_html
 		});
 		content_select.addEventListener("change", function() {
-			Gallery.showByType(this.selectedIndex);
+			self.showByType(this.selectedIndex);
 		});
 		wrap1.appendChild(content_select);
-
 
 		var header = document.getElementById("gallery-header");
 		header.appendChild(button1);
@@ -371,6 +372,7 @@ var Gallery = {
 	},
 
 	load: function() {
+		var self = this;
 		if (document.location.href.match(/https?:\/\/dobro/))
 			var thumbs = document.querySelectorAll('.thumb');
 		else if (document.location.href.match(/https?:\/\/boards.4ch/))
@@ -389,7 +391,7 @@ var Gallery = {
 		}
 
 		document.addEventListener('keydown', function(e) {
-			if (!Gallery.is_visible || !Gallery.is_loaded)
+			if (!self.is_visible || !self.is_loaded)
 				return;
 
 			var used_keys = {
@@ -403,26 +405,26 @@ var Gallery = {
 			switch (e.keyCode) {
 				case used_keys.key_h:
 				case used_keys.left_arrow:
-					Gallery.showPrev();
+					self.showPrev();
 					break;
 
 				case used_keys.key_l:
 				case used_keys.right_arrow:
-					Gallery.showNext();
+					self.showNext();
 					break;
 
 				case used_keys.space:
-					if (Gallery.player.style.display == 'none')
+					if (self.player.style.display == 'none')
 						return;
 
-					if (Gallery.player.paused)
-						Gallery.player.play();
+					if (self.player.paused)
+						self.player.play();
 					else
-						Gallery.player.pause();
+						self.player.pause();
 					break;
 
 				case used_keys.key_q:
-					Gallery.toggle();
+					self.toggle();
 					break;
 
 				default: return;
@@ -442,6 +444,7 @@ var Gallery = {
 	},
 
 	_genPreviewDiv: function(media_file, index) {
+		var self = this;
 		var res = create_element('a', {
 			className: "gallery-preview",
 			id: "prev_" + index,
@@ -449,7 +452,7 @@ var Gallery = {
 		});
 		res.style.backgroundImage = 'url("'+media_file.preview+'")';
 		res.addEventListener("click", function(e) {
-			Gallery.show(parseInt(this.id.match(/\d+$/)[0]));
+			self.show(parseInt(this.id.match(/\d+$/)[0]));
 			e.preventDefault();
 		});
 
@@ -464,6 +467,7 @@ var Gallery = {
 	},
 
 	show: function(id) {
+		var self = this;
 		if (id >= this.curr_seq.length)
 			id = 0;
 		else if (id < 0)
@@ -488,8 +492,8 @@ var Gallery = {
 			this.player.style.display = 'none';
 
 			this.preload_img.onload = function() {
-				Gallery.preload_icon.classList.remove('anim-preload');
-				Gallery.canvas.style.backgroundImage =
+				self.preload_icon.classList.remove('anim-preload');
+				self.canvas.style.backgroundImage =
 					'url("' + this.src + '")';
 			}
 			this.preload_img.src = media_file.src;
