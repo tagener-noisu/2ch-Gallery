@@ -408,14 +408,14 @@ var Gallery = {
 			if (!self.is_visible || !self.is_loaded)
 				return;
 
-			var used_keys = {
+			var used_keys = new Enum({
 				left_arrow: 37,
 				right_arrow: 39,
 				space: 32,
 				key_q: 81,
 				key_h: 72,
 				key_l: 76
-			}
+			});
 			switch (e.keyCode) {
 				case used_keys.key_h:
 				case used_keys.left_arrow:
