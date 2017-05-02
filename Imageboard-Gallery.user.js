@@ -171,7 +171,7 @@ var GalleryResources = {
 	<rect height="2" width="15" x="7.5" y="14" style="fill:#bbb;"/>\
 	<rect height="15" width="2" x="14" y="7.5" style="fill:#bbb;"/></svg>',
 
-	mode_select_inner_html: '<option>WEBM only</option>' +
+	mode_select_inner_html: '<option>Video only</option>' +
 				'<option>GIF only</option>' +
 				'<option>Pics only</option>' +
 				'<option selected="">All</option>',
@@ -213,7 +213,7 @@ function Enum(items) {
 }
 
 var MediaType = new Enum({
-	webm: 0, gif: 1, static: 2, all: 3
+	video: 0, gif: 1, static: 2, all: 3
 });
 
 var MediaFile = function(src, preview) {
@@ -223,7 +223,7 @@ var MediaFile = function(src, preview) {
 	if (!ext)
 		throw new Error("The URL doesn't have the extension");
 	if (ext[0] === ".webm" || ext[0] === ".mp4")
-		this.type = MediaType.webm;
+		this.type = MediaType.video;
 	else if (ext[0] === ".gif")
 		this.type = MediaType.gif;
 	else
@@ -473,7 +473,7 @@ var Gallery = {
 		if (media_file.type != MediaType.static) {
 			var type_label = create_element('div', {
 				className: 'type-preview',
-				innerHTML: ["webm", "gif"][media_file.type]
+				innerHTML: ["video", "gif"][media_file.type]
 			});
 			res.appendChild(type_label);
 		}
@@ -495,7 +495,7 @@ var Gallery = {
 
 		var media_file = this.curr_seq[id];
 
-		if (media_file.type === MediaType.webm) {
+		if (media_file.type === MediaType.video) {
 			this.preload_icon.classList.remove('anim-preload');
 			this.player.style.display = 'block';
 			this.player.src = media_file.src;
