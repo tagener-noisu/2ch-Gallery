@@ -199,22 +199,9 @@ var GalleryResources = {
 	</g></svg>'
 };
 
-function Enum(items) {
-	var props = {};
-	for (var k in items)
-		props[k] = {
-			value: items[k],
-			writable: false,
-			configurable: false,
-			enumerable: true
-		};
-	Object.defineProperties(this, props);
-	Object.freeze(this);
+var MediaType = {
+	webm: 0, gif: 1, static: 2, all: 3
 }
-
-var MediaType = new Enum({
-	video: 0, gif: 1, static: 2, all: 3
-});
 
 var MediaFile = function(src, preview) {
 	this.src = src;
