@@ -6,7 +6,7 @@
 // @include     http://dobrochan.ru/*/res/*
 // @include     http://dobrochan.com/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.4
+// @version     2.0.5
 // @grant       none
 // ==/UserScript==
 
@@ -200,7 +200,7 @@ var GalleryResources = {
 };
 
 var MediaType = {
-	webm: 0, gif: 1, static: 2, all: 3
+	video: 0, gif: 1, static: 2, all: 3
 }
 
 var MediaFile = function(src, preview) {
