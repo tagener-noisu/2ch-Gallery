@@ -379,7 +379,7 @@ var Gallery = {
 		else if (document.location.href.match(/https?:\/\/boards.4ch/))
 			var thumbs = document.querySelectorAll('.fileThumb img');
 		else
-			var thumbs = document.querySelectorAll('.preview');
+			var thumbs = document.querySelectorAll('.post__file-preview');
 
 		for (var i = 0, len = thumbs.length; i != len; ++i) {
 			var mf = new MediaFile(thumbs[i].parentNode.href, thumbs[i].src);
