@@ -5,6 +5,7 @@
 // @include     https://2ch.pm/*/res/*
 // @include     http://dobrochan.ru/*/res/*
 // @include     http://dobrochan.com/*/res/*
+// @include     https://dobrochan.net/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
 // @version     2.0.5
 // @grant       none
