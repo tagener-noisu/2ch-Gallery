@@ -48,6 +48,7 @@ var GalleryResources = {
 		margin: auto; \
 	} \
 	#gallery-header { \
+		display: flex; \
 		flex: 0 0 40px; \
 		width: 100%; \
 		box-sizing: border-box; \
@@ -58,11 +59,10 @@ var GalleryResources = {
 		z-index: 2; \
 	} \
 	.header-element { \
-		display: inline-block; \
 		height: 32px; \
 		color: #BBB; \
 		margin: 0 2px; \
-	 \
+	} \
 	.header-element select { \
 		position: fixed; \
 		height: 32px; \
@@ -73,9 +73,8 @@ var GalleryResources = {
 		text-align: center; \
 	} \
 	.header-button { \
-		display: inline-block; \
-		width: 30px; \
-		height: 30px; \
+		width: 32px; \
+		height: 32px; \
 		border: solid 1px #000; \
 		border-radius: 4px; \
 		cursor: pointer; \
@@ -90,8 +89,8 @@ var GalleryResources = {
 		background-size: contain; \
 		background-repeat: no-repeat; \
 		background-position: center; \
-		display: flex; \
-		flex-direction: column; \
+		display: flex;\
+		flex-direction: column;\
 	} \
 	#gallery-footer { \
 		display: block; \
@@ -102,7 +101,7 @@ var GalleryResources = {
 		overflow-y: hidden; \
 	} \
 	#gallery-footer.bottom { \
-		flex: 0 0 100px; \
+		flex: 0 0 100px;\
 		padding: 0; \
 		padding-top: 5px; \
 		width: 100%; \
@@ -524,3 +523,4 @@ var Gallery = {
 
 window.addEventListener("DOMContentLoaded", Gallery.init(), "false");
 // vim:ts=4:sw=4:
+
