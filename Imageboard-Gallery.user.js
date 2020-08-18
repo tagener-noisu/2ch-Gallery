@@ -7,7 +7,7 @@
 // @include     http://dobrochan.com/*/res/*
 // @include     https://dobrochan.net/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.6
+// @version     2.0.7
 // @grant       none
 // ==/UserScript==
 
@@ -40,17 +40,16 @@ var GalleryResources = {
 		min-width: 600px; \
 		min-height : 500px; \
 		background-color: #272727; \
-		overflow-y: auto; \
+		flex-direction: column; \
 	} \
 	#gallery-player { \
 		display: none; \
-		height: 100%; \
+		flex: 1; \
 		margin: auto; \
 	} \
 	#gallery-header { \
-		position: fixed; \
+		flex: 0 0 40px; \
 		width: 100%; \
-		height: 40px; \
 		box-sizing: border-box; \
 		padding: 4px 20px; \
 		box-shadow: 0 0 5px #111; \
@@ -63,7 +62,7 @@ var GalleryResources = {
 		height: 32px; \
 		color: #BBB; \
 		margin: 0 2px; \
-	} \
+	 \
 	.header-element select { \
 		position: fixed; \
 		height: 32px; \
@@ -87,31 +86,27 @@ var GalleryResources = {
 		background-color: rgba(0,0,0,0.3); \
 	} \
 	#gallery-main { \
-		position: absolute; \
-		top: 38px; \
-		bottom: 150px; \
-		width: 100%; \
+		flex: 1;\
 		background-size: contain; \
 		background-repeat: no-repeat; \
 		background-position: center; \
+		display: flex; \
+		flex-direction: column; \
 	} \
 	#gallery-footer { \
 		display: block; \
 		margin: 0 auto; \
 		padding: 0 10px; \
-		margin-top: 40px; \
 		max-width: 1200px; \
 		overflow-x: auto; \
 		overflow-y: hidden; \
 	} \
 	#gallery-footer.bottom { \
-		position: absolute; \
+		flex: 0 0 100px; \
 		padding: 0; \
 		padding-top: 5px; \
-		height: 150px; \
 		width: 100%; \
 		max-width: 100%; \
-		bottom: 0px; \
 		white-space: nowrap; \
 		background-color: inherit; \
 		background-image: inherit; \
@@ -120,19 +115,19 @@ var GalleryResources = {
 	.gallery-preview { \
 		display: inline-block; \
 		margin-bottom: -4px; \
-		height: 150px; \
-		width: 150px; \
+		height: 100px; \
+		width: 100px; \
 		background-size: cover; \
 		background-position: center; \
 	} \
 	.type-preview { \
 		position: absolute; \
-		width: 150px; \
-		height: 150px; \
+		width: 100px; \
+		height: 100px; \
 		font-size: 2em; \
 		color: #FFF; \
 		text-shadow: 0 0 2px #000; \
-		line-height: 150px; \
+		line-height: 100px; \
 		text-align: center; \
 	} \
 	#gallery-ctrl-btn { \
@@ -344,7 +339,7 @@ var Gallery = {
 		}
 		else {
 			this.ctrl_btn.classList.toggle('checked');
-			this.main_wrap.style.display = 'block';
+			this.main_wrap.style.display = 'flex';
 			this.is_visible = true;
 		}
 	},
@@ -364,7 +359,7 @@ var Gallery = {
 				break;
 			case this.mode.large_view:
 				f.classList.add('bottom');
-				m.style.display = 'block';
+				m.style.display = 'flex';
 				document.querySelector("#large-view-mode").
 					classList.add("checked");
 				document.querySelector("#prevs-only-mode").
