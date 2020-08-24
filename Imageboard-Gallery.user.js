@@ -7,7 +7,7 @@
 // @include     http://dobrochan.com/*/res/*
 // @include     https://dobrochan.net/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.7
+// @version     2.0.8
 // @grant       none
 // ==/UserScript==
 
@@ -47,14 +47,23 @@ var GalleryResources = {
 		flex: 1; \
 		margin: auto; \
 	} \
+	#gallery-header:hover { \
+		margin-top: 0; \
+		margin-bottom: 0; \
+		flex: 0 0 40px; \
+		background-color: inherit; \
+		box-shadow: 0 0 7px; \
+	} \
 	#gallery-header { \
 		display: flex; \
-		flex: 0 0 40px; \
+		flex: 0 0 80px; \
 		width: 100%; \
 		box-sizing: border-box; \
 		padding: 4px 20px; \
 		z-index: 2; \
+		margin-top: -40px; \
 		margin-bottom: -40px; \
+		transition: 100ms; \
 	} \
 	.header-element { \
 		height: 32px; \
@@ -66,7 +75,7 @@ var GalleryResources = {
 		height: 32px; \
 		border: solid 1px #000; \
 		border-radius: 4px; \
-		background-color: rgba(0,0,0,0.4); \
+		background-color: rgba(0,0,0,0.3); \
 		color: inherit; \
 		text-align: center; \
 	} \
@@ -77,11 +86,11 @@ var GalleryResources = {
 		border-radius: 4px; \
 		cursor: pointer; \
 		margin: 0 2px; \
-		background-color: rgba(0,0,0,0.4); \
+		box-sizing: border-box; \
 	} \
 	.header-button.checked { \
 		background-image: none; \
-		background-color: rgba(0,0,0,0.7); \
+		background-color: rgba(0,0,0,0.3); \
 	} \
 	#gallery-main { \
 		flex: 1;\
