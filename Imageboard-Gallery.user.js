@@ -109,33 +109,28 @@ var GalleryResources = {
 		overflow-y: hidden; \
 	} \
 	#gallery-footer.bottom { \
+		display: flex; \
 		flex: 0 0 100px;\
 		padding: 0; \
 		padding-top: 5px; \
 		width: 100%; \
 		max-width: 100%; \
-		white-space: nowrap; \
 		background-color: inherit; \
 		background-image: inherit; \
 		box-shadow: 0 0 5px #111; \
 	} \
 	.gallery-preview { \
-		display: inline-block; \
-		margin-bottom: -4px; \
-		height: 100px; \
-		width: 100px; \
+		flex: 0 0 100px; \
 		background-size: cover; \
 		background-position: center; \
 	} \
 	.type-preview { \
-		position: absolute; \
-		width: 100px; \
-		height: 100px; \
 		font-size: 2em; \
 		color: #FFF; \
 		text-shadow: 0 0 2px #000; \
 		line-height: 100px; \
 		text-align: center; \
+		text-decoration: none; \
 	} \
 	#gallery-ctrl-btn { \
 		position: fixed; \
