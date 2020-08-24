@@ -53,10 +53,8 @@ var GalleryResources = {
 		width: 100%; \
 		box-sizing: border-box; \
 		padding: 4px 20px; \
-		box-shadow: 0 0 5px #111; \
-		background-color: inherit; \
-		background-image: inherit; \
 		z-index: 2; \
+		margin-bottom: -40px; \
 	} \
 	.header-element { \
 		height: 32px; \
@@ -68,7 +66,7 @@ var GalleryResources = {
 		height: 32px; \
 		border: solid 1px #000; \
 		border-radius: 4px; \
-		background-color: rgba(0,0,0,0.3); \
+		background-color: rgba(0,0,0,0.4); \
 		color: inherit; \
 		text-align: center; \
 	} \
@@ -79,10 +77,11 @@ var GalleryResources = {
 		border-radius: 4px; \
 		cursor: pointer; \
 		margin: 0 2px; \
+		background-color: rgba(0,0,0,0.4); \
 	} \
 	.header-button.checked { \
 		background-image: none; \
-		background-color: rgba(0,0,0,0.3); \
+		background-color: rgba(0,0,0,0.7); \
 	} \
 	#gallery-main { \
 		flex: 1;\
