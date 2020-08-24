@@ -52,7 +52,7 @@ var GalleryResources = {
 		margin-bottom: 0; \
 		flex: 0 0 40px; \
 		background-color: inherit; \
-		box-shadow: 0 0 7px; \
+		box-shadow: 0 0 7px #111; \
 	} \
 	#gallery-header { \
 		display: flex; \
