@@ -7,7 +7,7 @@
 // @include     http://dobrochan.com/*/res/*
 // @include     https://dobrochan.net/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.9
+// @version     2.0.9.1
 // @grant       none
 // ==/UserScript==
 
@@ -123,6 +123,7 @@ var GalleryResources = {
 		flex: 0 0 100px; \
 		background-size: cover; \
 		background-position: center; \
+        text-decoration: none; \
 	} \
 	.type-preview { \
 		font-size: 2em; \
@@ -498,7 +499,7 @@ var Gallery = {
 			this.preload_img.src = media_file.src;
 		}
 
-		var preview_width = 150; // px
+		var preview_width = 100; // px
 		this.footer.scrollLeft = preview_width * id -
 			document.body.clientWidth / 2 + preview_width / 2;
 	},
