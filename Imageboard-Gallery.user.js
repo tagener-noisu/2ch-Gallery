@@ -7,7 +7,7 @@
 // @include     http://dobrochan.com/*/res/*
 // @include     https://dobrochan.net/*/res/*
 // @include     https://boards.4chan.org/*/thread/*
-// @version     2.0.9.1
+// @version     2.0.9.2
 // @grant       none
 // ==/UserScript==
 
@@ -94,6 +94,7 @@ var GalleryResources = {
 	} \
 	#gallery-main { \
 		flex: 1;\
+		overflow: hidden;\
 		background-size: contain; \
 		background-repeat: no-repeat; \
 		background-position: center; \
